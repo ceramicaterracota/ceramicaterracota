@@ -8,6 +8,13 @@
     <meta name="description" content="Cerâmica artesanal feita à mão em Indiana - SP. Peças decorativas e utilitárias esmaltadas, com identidade regional e acabamento único.">
     <meta name="keywords" content="cerâmica artesanal, cerâmica esmaltada, terracota, cerâmica Indiana SP">
 
+<meta property="og:title" content="Cerâmica Terracota – Loja Online">
+<meta property="og:description" content="Cerâmica artesanal feita à mão em Indiana – SP. Peças únicas para decoração e utilidade.">
+<meta property="og:image" content="capa.png">
+<meta property="og:url" content="https://ceramicaterracota.github.io/ceramicaterracota/">
+<meta property="og:type" content="website">
+
+
     <style>
 
         html {
@@ -154,8 +161,8 @@
 
         .produto img {
             width: 100%;
-            height: 200px;
-            object-fit: cover;
+            height: auto;
+            object-fit: contain;
             border-radius: 6px;
             margin-bottom: 10px;
         }
@@ -263,6 +270,7 @@
 </head>
 
 <script>
+
 function toggleMedidas(button) {
   const medidas = button.nextElementSibling; // pega a div logo depois do botão
   if (medidas.style.display === "none") {
@@ -273,6 +281,7 @@ function toggleMedidas(button) {
     button.textContent = "Medidas";
   }
 }
+
 </script>
 
 <body>
