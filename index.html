@@ -328,7 +328,7 @@ function toggleMedidas(button) {
 
     <div class="galeria">
         <div class="produto">
-  <img src="peca1.jpg" alt="Bebedouro e comedouro para pet" onclick="ampliarImagem(this)">
+  <img src="peca1.jpg" alt="Bebedouro e comedouro para pet">
   <h3>Bebedouro e comedouro para pet</h3>
   </p>Ideal para seu pet!</p>
 
@@ -353,7 +353,7 @@ function toggleMedidas(button) {
 </div>
 
         <div class="produto">
-            <img src="peca2.jpg" alt="Bebedouro Fonte para Gatos" onclick="ampliarImagem(this)">
+            <img src="peca2.jpg" alt="Bebedouro Fonte para Gatos">
             <h3>Bebedouro Fonte para Gatos</h3>
             </p>Ótimo para seu gato!</p>
 
@@ -369,7 +369,7 @@ function toggleMedidas(button) {
 </div>
 
         <div class="produto">
-            <img src="peca3.jpg" alt="Cachepô Brenan" onclick="ampliarImagem(this)">
+            <img src="peca3.jpg" alt="Cachepô Brenan">
             <h3>Cachepô Brenan</h3>
             </p>Linda decoração.</p>
 
@@ -391,7 +391,7 @@ function toggleMedidas(button) {
 
 
        <div class="produto">
-            <img src="peca4.jpg" alt="Cachepô Bola" onclick="ampliarImagem(this)">
+            <img src="peca4.jpg" alt="Cachepô Bola">
             <h3>Cachepô Bola</h3>
             </p></p>
 
@@ -412,7 +412,7 @@ function toggleMedidas(button) {
 </div>
 
      <div class="produto">
-            <img src="peca5.jpg" alt="Gruta para Imagem Sacra" onclick="ampliarImagem(this)">
+            <img src="peca5.jpg" alt="Gruta para Imagem Sacra">
             <h3>Gruta para Imagem Sacra</h3>
             </p></p>
 
@@ -435,7 +435,7 @@ function toggleMedidas(button) {
 </div>
 
    <div class="produto">
-            <img src="peca6.jpg" alt="Castiçal" onclick="ampliarImagem(this)">
+            <img src="peca6.jpg" alt="Castiçal">
             <h3>Castiçal</h3>
             </p></p>
 
@@ -450,7 +450,7 @@ function toggleMedidas(button) {
 </div>
 
     <div class="produto">
-            <img src="peca7.jpg" alt="Mini Ânfora" onclick="ampliarImagem(this)">
+            <img src="peca7.jpg" alt="Mini Ânfora">
             <h3>Mini Ânfora</h3>
             </p></p>
 
@@ -471,7 +471,7 @@ function toggleMedidas(button) {
 </div>
 
      <div class="produto">
-            <img src="peca8.jpg" alt="Mantegueira em Argila" onclick="ampliarImagem(this)">
+            <img src="peca8.jpg" alt="Mantegueira em Argila">
             <h3>Mantegueira em Argila</h3>
             </p></p>
 
@@ -531,22 +531,36 @@ function toggleMedidas(button) {
 </section>
   
    
+
 <div id="modal" class="modal">
-  <span class="fechar" onclick="fecharModal()">&times;</span>
+  <span class="fechar">&times;</span>
   <img class="modal-conteudo" id="imgAmpliada">
 </div>
 
- <script>
-function ampliarImagem(elemento) {
-  var modal = document.getElementById("modal");
-  var imgAmpliada = document.getElementById("imgAmpliada");
-  modal.style.display = "block";
-  imgAmpliada.src = elemento.src; // pega a mesma imagem clicada
-}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var modal = document.getElementById("modal");
+    var imgAmpliada = document.getElementById("imgAmpliada");
+    var fecharBtn = document.querySelector(".fechar");
 
-function fecharModal() {
-  document.getElementById("modal").style.display = "none";
-}
+    var imagens = document.querySelectorAll(".produto img");
+    imagens.forEach(function(img) {
+        img.addEventListener("click", function() {
+            modal.style.display = "block";
+            imgAmpliada.src = this.src;
+        });
+    });
+
+    fecharBtn.addEventListener('click', function() {
+        modal.style.display = "none";
+    });
+
+    modal.addEventListener('click', function(e) {
+        if (e.target == modal) {
+            modal.style.display = "none";
+        }
+    });
+});
 </script>
 
  <footer style="background-color:#fffaf0; text-align:center; padding:20px; margin-top:40px; border-top:2px solid #a0522d;">
