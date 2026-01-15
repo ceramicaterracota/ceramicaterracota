@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cerâmica Terracota  Loja Online | Indiana - SP</title>
+
+    <meta name="description" content="Cerâmica artesanal feita à mão em Indiana - SP. Peças decorativas e utilitárias esmaltadas, com identidade regional e acabamento único.">
+    <meta name="keywords" content="cerâmica artesanal, cerâmica esmaltada, terracota, cerâmica Indiana SP">
+
+    <style>
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* RESET */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5dc;
+            color: #2f2f2f;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 {
+            font-family: Georgia, serif;
+            color: #8b4513;
+        }
+
+        /* CONTAINER */
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        section.container {
+            margin-bottom: 20px;
+       }
+
+        /* BOTÕES */
+        .btn {
+            background-color: #a0522d;
+            color: #fffaf0;
+            padding: 10px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.95em;
+            display: inline-block;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #8b4513;
+        }
+
+        /* NAV */
+        nav {
+            background-color: #fffaf0;
+            border-bottom: 2px solid #a0522d;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            gap: 20px;
+            padding: 15px;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #2f2f2f;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            color: #a0522d;
+        }
+
+        /* HOME */
+        #home {
+            background: url("banner.jpg") center/cover no-repeat;
+            min-height: 70vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .home-box {
+            background-color: rgba(245, 245, 220, 0.9);
+            padding: 30px;
+            border-radius: 12px;
+            max-width: 700px;
+        }
+
+        .logo-title {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+       .logo {
+           height: 250px;
+        } 
+
+        .botoes-home {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        /* SEÇÕES */
+        section {
+            margin-top: 0;
+            margin-bottom: 40px;
+            background-color: #fffaf0;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+        }
+
+        /* CATÁLOGO */
+        .galeria {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .produto {
+            background-color: #f5f5dc;
+            border: 1px solid #a0522d;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .produto img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 6px;
+            margin-bottom: 10px;
+        }
+
+        /* PROCESSO */
+        .etapas {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-top: 10px;
+        }
+
+        .etapa img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 6px;
+            margin-bottom: 10px;
+        }
+
+        /* CONTATO */
+        #contato a {
+            color: #8b4513;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        /* MOBILE */
+        @media (max-width: 768px) {
+            #home {
+                padding: 20px;
+            }
+
+            .home-box {
+                padding: 20px;
+            }
+
+            .logo-title {
+                flex-direction: column;
+            }
+        }
+
+         section {
+              scroll-margin-top: 150px;
+        }
+
+       .etapas h3 { 
+           font-size: 1.1em; 
+           color: #8b4513;            
+           font-weight: bold; 
+        }
+
+      .btn-saiba {
+  background-color: #a0522d;
+  color: #fffaf0;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.btn-saiba:hover {
+  background-color: #8b4513;
+}
+
+.modal {
+  display: none; /* escondido por padrão */
+  position: fixed;
+  z-index: 999;
+  padding-top: 60px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.8);
+}
+
+.modal-conteudo {
+  margin: auto;
+  display: block;
+  max-width: 90%;
+  max-height: 80%;
+  border-radius: 10px;
+}
+
+.fechar {
+  position: absolute;
+  top: 20px;
+  right: 35px;
+  color: #fff;
+  font-size: 40px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.fechar:hover {
+  color: #a0522d;
+}
+
+    </style>
+
+
+</head>
+
+<script>
+function toggleMedidas(button) {
+  const medidas = button.nextElementSibling; // pega a div logo depois do botão
+  if (medidas.style.display === "none") {
+    medidas.style.display = "block";
+    button.textContent = "Fechar";
+  } else {
+    medidas.style.display = "none";
+    button.textContent = "Medidas";
+  }
+}
+</script>
+
+<body>
+
+<nav>
+    <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#sobre">Sobre</a></li>
+        <li><a href="#catalogo">Catálogo</a></li>
+        <li><a href="#processo">Processo</a></li>
+        <li><a href="#contato">Contato</a></li>
+    </ul>
+</nav>
+
+<section id="home">
+    <div class="home-box">
+        <div class="logo-title">
+            <img src="logo.png" alt="Cerâmica Terracota" class="logo">
+            <h1>Cerâmica Terracota  Loja Online</h1>
+        </div>
+
+        <h2>Feita à mão em Indiana – SP</h2>
+        <p>Peças decorativas e utilitárias com esmaltação artesanal e identidade regional.</p>
+
+        <div class="botoes-home">
+            <a href="#catalogo" class="btn">Ver catálogo</a>
+            <a href="https://wa.me/5518998034500" class="btn" target="_blank">Falar no WhatsApp</a>
+        </div>
+    </div>
+</section>
+
+<section id="sobre" class="container">
+    <h2>Sobre a Terracota</h2>
+    <p>
+        A Cerâmica Terracota nasce do barro e das mãos. Nossa produção é 100% manual,
+        com técnicas tradicionais e esmaltação artesanal, valorizando a identidade
+        regional de Indiana – SP. Cada peça é única!
+    </p>
+</section>
+
+<section id="catalogo" class="container">
+    <h2>Catálogo</h2>
+    <p>Cada peça pode apresentar variações naturais por ser artesanal.</p>
+
+    <div class="galeria">
+        <div class="produto">
+  <img src="peca1.jpg" alt="Bebedouro e comedouro para pet" onclick="ampliarImagem(this)">
+  <h3>Bebedouro e comedouro para pet</h3>
+  </p>Ideal para seu pet!</p>
+
+  <button class="btn-saiba" onclick="toggleMedidas(this)">Medidas</button>
+
+  <div class="medidas" style="display: none;">
+    <strong>Nº1</strong><br>
+    Boca - 18cm<br>
+    Altura - 9,5cm<br>
+    Fundo - 17cm<br>
+
+   <strong>Nº2</strong><br>
+    Boca - 22cm<br>
+    Altura - 11cm<br>
+    Fundo - 20cm<br>
+
+   <strong>Nº3</strong><br>
+    Boca - 26cm<br>
+    Altura - 12,5cm<br>
+    Fundo - 24cm<br>
+  </div>
+</div>
+
+        <div class="produto">
+            <img src="peca2.jpg" alt="Bebedouro Fonte para Gatos" onclick="ampliarImagem(this)">
+            <h3>Bebedouro Fonte para Gatos</h3>
+            </p>Ótimo para seu gato!</p>
+
+  <button class="btn-saiba" onclick="toggleMedidas(this)">Medidas</button>
+
+  <div class="medidas" style="display: none;">
+    <strong>Tamanho único</strong><br>
+    Boca - 19,5cm<br>
+    Altura - 16cm<br>
+    Fundo - 17cm<br>
+
+  </div>
+</div>
+
+        <div class="produto">
+            <img src="peca3.jpg" alt="Cachepô Brenan" onclick="ampliarImagem(this)">
+            <h3>Cachepô Brenan</h3>
+            </p>Linda decoração.</p>
+
+  <button class="btn-saiba" onclick="toggleMedidas(this)">Medidas</button>
+
+  <div class="medidas" style="display: none;">
+    <strong>Nº1</strong><br>
+    Boca - 13cm<br>
+    Altura - 11,5cm<br>
+    Fundo - 9cm<br>
+
+   <strong>Nº2</strong><br>
+    Boca - 15,5cm<br>
+    Altura - 14cm<br>
+    Fundo - 10,5cm<br>
+
+  </div>
+</div>
+
+
+       <div class="produto">
+            <img src="peca4.jpg" alt="Cachepô Bola" onclick="ampliarImagem(this)">
+            <h3>Cachepô Bola</h3>
+            </p></p>
+
+  <button class="btn-saiba" onclick="toggleMedidas(this)">Medidas</button>
+
+  <div class="medidas" style="display: none;">
+    <strong>Nº1</strong><br>
+    Boca - 13cm<br>
+    Altura - 11,5cm<br>
+    Fundo - 9cm<br>
+
+   <strong>Nº2</strong><br>
+    Boca - 15,5cm<br>
+    Altura - 14cm<br>
+    Fundo - 10,5cm<br>
+
+  </div>
+</div>
+
+     <div class="produto">
+            <img src="peca5.jpg" alt="Gruta para Imagem Sacra" onclick="ampliarImagem(this)">
+            <h3>Gruta para Imagem Sacra</h3>
+            </p></p>
+
+  <button class="btn-saiba" onclick="toggleMedidas(this)">Medidas</button>
+
+  <div class="medidas" style="display: none;">
+    <strong>Nº1</strong><br>
+    Altura - 13cm<br>
+    Fundo - 13cm<br>
+
+   <strong>Nº2</strong><br>
+    Altura - 19cm<br>
+    Fundo - 18cm<br>
+  
+   <strong>Nº3</strong><br>
+    Altura - 26cm<br>
+    Fundo - 21cm<br>
+
+  </div>
+</div>
+
+   <div class="produto">
+            <img src="peca6.jpg" alt="Castiçal" onclick="ampliarImagem(this)">
+            <h3>Castiçal</h3>
+            </p></p>
+
+  <button class="btn-saiba" onclick="toggleMedidas(this)">Medidas</button>
+
+  <div class="medidas" style="display: none;">
+    <strong>Tamanho único</strong><br>
+    Altura - 4cm<br>
+    Fundo - 10cm<br>
+
+  </div>
+</div>
+
+    <div class="produto">
+            <img src="peca7.jpg" alt="Mini Ânfora" onclick="ampliarImagem(this)">
+            <h3>Mini Ânfora</h3>
+            </p></p>
+
+  <button class="btn-saiba" onclick="toggleMedidas(this)">Medidas</button>
+
+  <div class="medidas" style="display: none;">
+    <strong>Tamanho P</strong><br>
+    Boca - 7,5cm<br>
+    Altura - 16cm<br>
+    Fundo - 7cm<br>
+
+   <strong>Tamanho G</strong><br>
+    Boca - 13cm<br>
+    Altura - 28cm<br>
+    Fundo - 12cm<br>
+ 
+  </div>
+</div>
+
+     <div class="produto">
+            <img src="peca8.jpg" alt="Mantegueira em Argila" onclick="ampliarImagem(this)">
+            <h3>Mantegueira em Argila</h3>
+            </p></p>
+
+  <button class="btn-saiba" onclick="toggleMedidas(this)">Medidas</button>
+
+  <div class="medidas" style="display: none;">
+    <strong>Tampa</strong><br>
+    Altura - 12cm<br>
+    Boca - 16,5cm<br>
+
+   <strong>Pratinho</strong><br>
+    Altura - 2cm<br>
+    Boca - 20cm<br>
+    Fundo - 18cm<br>
+ 
+  </div>
+</div>
+
+
+</section>
+
+<section id="processo" class="container">
+    <h2>Processo Artesanal</h2>
+
+      <div class="etapas">
+        <div class="etapa">
+            <img src="preparo.jpg" alt="Preparo da Matéria Prima">
+            <h3>1. Preparo da Matéria Prima</h3>
+            <p>Processando o Barro da natureza para a produção.</p>
+        </div>
+
+        <div class="etapa">
+            <img src="modelagem.jpg" alt="Modelagem">
+            <h3>2. Modelagem</h3>
+            <p>O barro ganha forma pelas mãos.</p>
+        </div>
+
+        <div class="etapa">
+            <img src="queima.jpg" alt="Queima">
+            <h3>3. Queima</h3>
+            <p>Forno fortalece e prepara a peça.</p>
+        </div>
+
+        <div class="etapa">
+            <img src="esmaltacao.jpg" alt="Esmaltação">
+            <h3>4. Esmaltação</h3>
+            <p>Acabamento único e artesanal.</p>
+        </div>
+    </div>
+</section>
+
+<section id="contato" class="container">
+    <h2>Contato</h2>
+    <p><strong>Instagram:</strong> <a href="https://www.instagram.com/ceramicaterracotaindiana/" target="_blank">@ceramicaterracotaindiana</a></p>
+    <p><strong>WhatsApp:</strong> <a href="https://wa.me/5518998034500" target="_blank">+55 18 99803-4500</a></a> – Rodrigo Varago Fabri</p>  
+    <p><strong>Local:</strong> Indiana – SP – Brasil</p>
+</section>
+  
+   
+<div id="modal" class="modal">
+  <span class="fechar" onclick="fecharModal()">&times;</span>
+  <img class="modal-conteudo" id="imgAmpliada">
+</div>
+
+ <script>
+function ampliarImagem(elemento) {
+  var modal = document.getElementById("modal");
+  var imgAmpliada = document.getElementById("imgAmpliada");
+  modal.style.display = "block";
+  imgAmpliada.src = elemento.src; // pega a mesma imagem clicada
+}
+
+function fecharModal() {
+  document.getElementById("modal").style.display = "none";
+}
+</script>
+
+
+</body>
+</html>
