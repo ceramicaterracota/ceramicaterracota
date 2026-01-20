@@ -673,6 +673,32 @@ document.addEventListener("mousemove", (e) => {
   aplicarTransform();
 });
 
+img.addEventListener("touchstart", (e) => {
+  e.preventDefault();
+  dragging = true;
+  startX = e.touches[0].clientX;
+  startY = e.touches[0].clientY;
+});
+
+img.addEventListener("touchend", () => {
+  dragging = false;
+});
+
+img.addEventListener("touchmove", (e) => {
+  if (!dragging) return;
+
+  const touch = e.touches[0];
+  const dx = touch.clientX - startX;
+  const dy = touch.clientY - startY;
+
+  posX += dx;
+  posY += dy;
+
+  startX = touch.clientX;
+  startY = touch.clientY;
+
+  aplicarTransform();
+});
 
   
   fechar.addEventListener("click", () => {
