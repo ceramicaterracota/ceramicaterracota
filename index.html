@@ -327,10 +327,26 @@
   font-size: 0.9em;
 }
 
+.titulo-principal {
+  text-align: center;
+  line-height: 1.2;
+}
+
+.subtitulo-h1 {
+  display: block;          /* força quebrar a linha */
+  font-size: 1em;        /* menor que o título */
+  font-weight: inherit;
+  margin-top: 5px;
+}
+
+
     </style>
 
 
 </head>
+
+
+<body>
 
 <script>
 
@@ -361,14 +377,12 @@ function toggleBloco(button, textoOriginal) {
 }
 </script>
 
-<body>
-
 <nav>
     <ul>
         <li><a href="#home">Home</a></li>
         <li><a href="#sobre">Sobre</a></li>
-        <li><a href="#catalogo - naturais">Naturais</a></li>
-        <li><a href="#catalogo - esmaltados">Esmaltados</a></li>
+        <li><a href="#catalogo-naturais">Naturais</a></li>
+        <li><a href="#catalogo-esmaltados">Esmaltados</a></li>
         <li><a href="#processo">Processo</a></li>
         <li><a href="#contato">Contato</a></li>
     </ul>
@@ -378,7 +392,11 @@ function toggleBloco(button, textoOriginal) {
     <div class="home-box">
         <div class="logo-title">
             <img src="logo.png" alt="Cerâmica Terracota" class="logo">
-            <h1>Cerâmica Terracota<p>Loja Online<p></h1>
+            <h1 class="titulo-principal">
+  Cerâmica Terracota
+  <span class="subtitulo-h1">Loja Online</span>
+</h1>
+
         </div>
 
         <h2 class="subtitulo">Feita à mão em Indiana – SP</h2>
@@ -403,7 +421,7 @@ function toggleBloco(button, textoOriginal) {
     </p>
 </section>
 
-<section id="catalogo - naturais" class="container">
+<section id="catalogo-naturais" class="container">
     <h2>Catálogo - Naturais</h2>
     <p>Cada peça pode apresentar variações naturais por ser artesanal.</p>
 
@@ -569,7 +587,7 @@ function toggleBloco(button, textoOriginal) {
 
 </section>
 
-<section id="catalogo - esmaltados" class="container">
+<section id="catalogo-esmaltados" class="container">
     <h2>Catálogo - Esmaltados</h2>
     <p>Cada peça pode apresentar variações de tonalidades.</p>
 
