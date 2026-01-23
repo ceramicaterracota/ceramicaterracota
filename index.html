@@ -339,6 +339,55 @@
   margin-top: 5px;
 }
 
+.btn-topo {
+  position: fixed;
+  bottom: 25px;
+  left: 25px;
+  width: 45px;
+  height: 45px;
+  background-color: #a0522d;
+  color: #fff;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 45px;
+  font-size: 22px;
+  font-weight: bold;
+  text-decoration: none;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  z-index: 1000;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.btn-topo:hover {
+  background-color: #8b4513;
+  transform: scale(1.1);
+}
+
+.wiki-content {
+    display: none;
+}
+
+.wiki-toggle {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.setinha {
+    font-size: 18px;
+    transition: transform 0.3s ease;
+}
+
+/* quando abrir */
+.wiki-open .wiki-content {
+    display: block;
+}
+
+.wiki-open .setinha {
+    transform: rotate(180deg);
+}
+
 
     </style>
 
@@ -412,17 +461,29 @@ function toggleBloco(button, textoOriginal) {
     </div>
 </section>
 
-<section id="sobre" class="container">
-    <h2>Sobre a Terracota Produtos Cerâmicos</h2>
+<section id="sobre" class="container wiki">
+    <h2 class="wiki-toggle">
+       Sobre a Terracota Produtos Cerâmicos
+       <span class="setinha">▾</span>
+   </h2>
+
+   <div class="wiki-content">
     <p>
         A Cerâmica Terracota nasce do barro e das mãos. Nossa produção é 100% manual,
         com técnicas tradicionais e esmaltação artesanal, valorizando a identidade
         regional de Indiana – SP. Cada peça é única!
     </p>
+   </div>
 </section>
 
-<section id="catalogo-naturais" class="container">
-    <h2>Catálogo - Naturais</h2>
+<section id="catalogo-naturais" class="container wiki">
+    <h2 class="wiki-toggle">
+       Catálogo - Naturais
+      <span class="setinha">▾</span>
+   </h2>
+
+<div class="wiki-content">
+
     <p>Cada peça pode apresentar variações naturais por ser artesanal.</p>
 
     <div class="galeria">
@@ -584,11 +645,18 @@ function toggleBloco(button, textoOriginal) {
   </div>
 </div>
 
+ </div> 
 
 </section>
 
-<section id="catalogo-esmaltados" class="container">
-    <h2>Catálogo - Esmaltados</h2>
+<section id="catalogo-esmaltados" class="container wiki">
+     <h2 class="wiki-toggle">
+       Catálogo - Esmaltados
+      <span class="setinha">▾</span>
+</h2>
+
+ <div class="wiki-content">
+
     <p>Cada peça pode apresentar variações de tonalidades.</p>
 
     <div class="galeria">
@@ -1622,12 +1690,17 @@ function toggleBloco(button, textoOriginal) {
 </div>
 </div>
 
-
+</div>
 
 </section>
 
-<section id="processo" class="container">
-    <h2>Processo Artesanal</h2>
+<section id="processo" class="container wiki">
+    <h2 class="wiki-toggle">
+       Processo Artesanal
+      <span class="setinha">▾</span>
+</h2>
+
+ <div class="wiki-content">
 
       <div class="etapas">
         <div class="etapa">
@@ -1674,14 +1747,23 @@ Após a aplicação do esmalte, as peças são levadas ao forno a gás, onde pas
             <img src="esmaltacao.jpg" alt="Esmaltação" class="img-processo">
          </div>
     </div>
+
+</div>
 </section>
 
-<section id="contato" class="container">
-    <h2>Contato</h2>
+<section id="contato" class="container wiki">
+    <h2 class="wiki-toggle">
+        Contato
+        <span class="setinha">▾</span>
+  </h2>
+
+<div class="wiki-content">
+
     <p><strong>Instagram:</strong> <a href="https://www.instagram.com/terracota.lojaonline/" target="_blank">@terracota.lojaonline</a>  <a href="https://www.instagram.com/ceramicaterracotaindiana/" target="_blank">@ceramicaterracotaindiana</a></p>
     <p><strong>WhatsApp:</strong> <a>• <a href="https://wa.me/5518998034500" target="_blank">+55 18 99803-4500</a> – Rodrigo <p><a>• <a href="https://wa.me/5518998022718" target="_blank">   +55 18 99802-2718</a> – Tainá</p>  
 
     <p><strong>Local:</strong> Indiana – SP – Brasil</p>
+</div>
 </section>
   
    
@@ -1815,6 +1897,16 @@ img.addEventListener("touchmove", (e) => {
     <p>Indiana – SP – Brasil</p>
     <p>&copy; 2026 Cerâmica Terracota. Todos os direitos reservados.</p>
 </footer>
+
+<a href="#home" class="btn-topo" title="Voltar ao topo">↑</a>
+
+<script>
+document.querySelectorAll(".wiki-toggle").forEach(titulo => {
+    titulo.addEventListener("click", () => {
+        titulo.parentElement.classList.toggle("wiki-open");
+    });
+});
+</script>
 
 
 </body>
