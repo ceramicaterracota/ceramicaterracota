@@ -89,6 +89,50 @@
         padding: 5px; /* Deixa o container ocupar quase a tela toda do celular */
     }
 }
+
+/* Container que imita a caixa branca do input antigo */
+.controle-qtd {
+    display: flex;
+    align-items: center;
+    background: #fff; /* Fundo branco como você pediu */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    overflow: hidden; /* Garante que os botões não saiam da borda */
+    height: 28px;
+}
+
+.btn-qtd {
+    background: transparent; /* Remove o marrom */
+    color: #333;
+    border: none;
+    width: 13px; /* Menor que antes */
+    height: 100%;
+    font-size: 14px; /* Sinais menores */
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background 0.2s;
+}
+
+.btn-qtd:hover {
+    background: #f0f0f0; /* Um cinza bem leve ao passar o mouse */
+}
+
+/* O número no meio */
+.qtd-numero {
+    font-size: 16px;
+    font-weight: normal; /* Sem negrito como você pediu */
+    min-width: 30px;
+    text-align: center;
+    border-left: 1px solid #eee; /* Divisórias internas bem clarinhas */
+    border-right: 1px solid #eee;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
     </style>
 </head>
 
@@ -132,10 +176,13 @@ function renderizar() {
                     <strong>${item.nome}</strong><br>
                     <small>Opção: ${item.opcao || 'Padrão'}</small>
                 </div>
-                <div>
-                    <input type="number" min="1" value="${item.quantidade}" 
-                           onchange="alterarQtd(${i}, this.value)">
+                
+                <div class="controle-qtd">
+                    <button class="btn-qtd" onclick="alterarQtd(${i}, ${item.quantidade - 1})">−</button>
+                    <span class="qtd-numero">${item.quantidade}</span>
+                    <button class="btn-qtd" onclick="alterarQtd(${i}, ${item.quantidade + 1})">+</button>
                 </div>
+
                 <span>R$ ${subtotal.toFixed(2)}</span>
                 <button class="btn-remover" onclick="remover(${i})">X</button>
             </div>
@@ -146,8 +193,16 @@ function renderizar() {
 }
 
 function alterarQtd(i, valor) {
-    if (valor < 1) valor = 1;
-    carrinho[i].quantidade = parseInt(valor);
+    // Se o valor atual é 1 e o usuário clicou no botão de menos (valor vira 0)
+    if (valor < 1) {
+        const confirmar = confirm(`Deseja remover "${carrinho[i].nome}" do carrinho?`);
+        if (confirmar) {
+            remover(i); // Chama a função de remover que você já tem
+        }
+        return; // Sai da função sem alterar o valor para zero
+    }
+    
+    carrinho[i].quantidade = valor;
     salvarEAtualizar();
 }
 
