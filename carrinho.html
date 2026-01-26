@@ -112,50 +112,48 @@
     }
 }
 
-/* Container que imita a caixa branca do input antigo */
+/* Container principal */
 .controle-qtd {
     display: flex;
     align-items: center;
-    background: #fff; /* Fundo branco como você pediu */
+    background: #fff;
     border: 1px solid #ccc;
     border-radius: 4px;
-    overflow: hidden; /* Garante que os botões não saiam da borda */
+    overflow: hidden;
     height: 28px;
-    flex-shrink: 0; /* Impede que a caixa de quantidade "encolha" no celular */
+    width: 80px; /* Definimos uma largura total para a caixa */
+    flex-shrink: 0;
 }
 
+/* Botões - IGUALANDO OS LADOS */
 .btn-qtd {
-    background: transparent; /* Remove o marrom */
+    background: transparent;
     color: #333;
     border: none;
-    width: 13px; /* Menor que antes */
+    width: 25px; /* Aumentamos para 25px para os sinais terem respiro igual */
     height: 100%;
-    font-size: 14px; /* Sinais menores */
+    font-size: 16px; 
     cursor: pointer;
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 0; /* Remove qualquer espaço interno extra */
     transition: background 0.2s;
-}
-
-.btn-qtd:hover {
-    background: #f0f0f0; /* Um cinza bem leve ao passar o mouse */
 }
 
 /* O número no meio */
 .qtd-numero {
-    font-size: 16px;
-    font-weight: normal; /* Sem negrito como você pediu */
-    min-width: 30px;
+    font-size: 14px;
+    font-weight: normal;
+    flex: 1; /* Faz o número ocupar o espaço central exato entre os botões */
     text-align: center;
-    border-left: 1px solid #eee; /* Divisórias internas bem clarinhas */
+    border-left: 1px solid #eee; 
     border-right: 1px solid #eee;
     height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
 }
-
     </style>
 </head>
 
