@@ -84,36 +84,34 @@
         padding: 15px; 
     }
     
-    body {
-        padding: 5px; 
-    }
-
-    /* O SEGREDO ESTÁ AQUI: */
     .item {
-        flex-wrap: wrap; /* Permite que os itens "pulem" para a linha de baixo se não couberem */
-        gap: 10px;
+        flex-wrap: wrap;
+        display: flex;
+        justify-content: space-between; /* Empurra a quantidade pra esquerda e o preço pra direita */
+        align-items: center;
         padding: 20px 0;
     }
 
     .item-info {
-        width: 100%; /* O nome do produto agora ocupa a linha inteira */
-        font-size: 1.1em; /* Diminui um pouquinho a letra do nome no celular */
-        margin-bottom: 5px;
+        width: 100%; /* Nome continua em cima ocupando tudo */
+        margin-bottom: 10px;
     }
 
     .controle-qtd {
-        order: 2; /* Organiza a posição: quantidade primeiro */
+        /* Garante que os botões não se amontoem */
+        width: 70px; 
+        justify-content: space-between;
     }
 
+    /* Estilo para o preço não ficar perdido no centro */
     .item span {
-        order: 3; /* Preço depois */
+        flex-grow: 1;
+        text-align: right;
+        margin-right: 10px;
         font-weight: bold;
     }
-
-    button.btn-remover {
-        order: 4; /* Botão de remover por último */
-    }
 }
+
 /* Container que imita a caixa branca do input antigo */
 .controle-qtd {
     display: flex;
@@ -123,6 +121,7 @@
     border-radius: 4px;
     overflow: hidden; /* Garante que os botões não saiam da borda */
     height: 28px;
+    flex-shrink: 0; /* Impede que a caixa de quantidade "encolha" no celular */
 }
 
 .btn-qtd {
