@@ -19,6 +19,29 @@
 
     <style>
 
+
+
+.opcao {
+  width: 35%;
+  padding: 6px 4px;
+  font-size: 14px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  cursor: pointer;
+  heigh: auto;
+}
+
+.controle-compra {
+  margin-top: 14px;
+}
+
+.opcao:focus {
+  border-color: #c27a4a; /* tom terracota */
+  outline: none;
+}
+
+
         html {
             scroll-behavior: smooth;
         }
@@ -394,6 +417,72 @@
   margin: 6px 0;
 }
 
+.btn-carrinho {
+  margin-left: auto;
+  background: #c46a2b;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 20px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* --- PADRONIZAÇÃO DOS CAMPOS DE SELEÇÃO --- */
+
+.controle-compra {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 15px;
+    padding: 10px;
+    border-top: 1px dashed #a0522d; /* Linha sutil para separar */
+}
+
+.campo {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    text-align: left;
+}
+
+.campo label {
+    font-size: 0.85em;
+    font-weight: bold;
+    color: #8b4513;
+    text-transform: uppercase;
+}
+
+/* Estiliza os selects (Tamanho e Cor) para ficarem iguais */
+.opcao, .cor-selecionada {
+    width: 100%;
+    padding: 8px;
+    border: 1.5px solid #a0522d;
+    border-radius: 6px;
+    background-color: #fffaf0;
+    color: #2f2f2f;
+    font-family: inherit;
+    font-size: 0.95em;
+    cursor: pointer;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.opcao:focus, .cor-selecionada:focus {
+    border-color: #8b4513;
+    box-shadow: 0 0 5px rgba(160, 82, 45, 0.2);
+}
+
+/* Estilo para o botão de Adicionar ficar diferente do 'Saiba Mais' */
+.controle-compra .btn-saiba {
+    width: 100%;
+    background-color: #28a745; /* Verde para destacar a ação de compra */
+    margin-top: 5px;
+}
+
+.controle-compra .btn-saiba:hover {
+    background-color: #218838;
+}
+
 
     </style>
 
@@ -404,19 +493,20 @@
 <body>
 
 <script>
+function toggleInfo(botao) {
+  const produto = botao.closest('.produto');
+  const medidas = produto.querySelector('.medidas');
 
-function toggleInfo(button, textoOriginal) {
-  const info = button.nextElementSibling;
-
-  if (info.style.display === "none") {
-    info.style.display = "block";
-    button.textContent = "Fechar";
+  if (medidas.style.display === "none" || medidas.style.display === "") {
+    medidas.style.display = "block";
+    botao.textContent = "Fechar";
   } else {
-    info.style.display = "none";
-    button.textContent = textoOriginal;
+    medidas.style.display = "none";
+    botao.textContent = "Medidas";
   }
 }
 </script>
+
 
 <script>
 function toggleBloco(button, textoOriginal) {
@@ -440,6 +530,9 @@ function toggleBloco(button, textoOriginal) {
         <li><a href="#catalogo-esmaltados">Esmaltados</a></li>
         <li><a href="#processo">Processo</a></li>
         <li><a href="#contato">Contato</a></li>
+        <li><a href="carrinho.html" class="btn-carrinho">
+    🛒(<span id="contadorCarrinho">0</span>)
+  </a></li>
     </ul>
 </nav>
 
@@ -515,7 +608,11 @@ function toggleBloco(button, textoOriginal) {
   <p>Kit 3 - R$ 20</p>
   <p>P: R$ 5 | M: R$ 7 | G: R$ 9</p>
 
- <button class="btn-saiba" onclick="toggleInfo(this, 'Medidas')">Medidas</button>
+<div class="linha-medidas">
+  <button class="btn-saiba" onclick="toggleInfo(this)">
+    Medidas
+  </button>
+</div>
 
   <div class="medidas" style="display: none;">
     <strong>P</strong><br>
@@ -533,23 +630,52 @@ function toggleBloco(button, textoOriginal) {
     Altura - 12,5 cm<br>
     Fundo - 24 cm<br>
   </div>
+
+<div class="controle-compra">
+
+    <div class="campo">
+      <label>Tamanho</label>
+      <select class="opcao">
+        <option value="P" data-preco="5">P – R$ 5</option>
+        <option value="M" data-preco="7">M – R$ 7</option>
+        <option value="G" data-preco="9">G – R$ 9</option>
+        <option value="Kit" data-preco="20">Kit – R$ 20</option>
+      </select>
+    </div>
+
+    <button class="btn-saiba" onclick="adicionarProduto(this)">
+      Adicionar ao carrinho
+    </button>
+
+  </div>
 </div>
 
-        <div class="produto">
+        <div class="produto" data-preco="40">
             <img src="peca2.jpg" alt="Bebedouro Fonte para Gatos">
             <h3>Bebedouro Fonte para Gatos</h3>
             <p>1 unidade</p>
             <p>Tamanho único - R$ 40</p>
 
-<button class="btn-saiba" onclick="toggleInfo(this, 'Medidas')">Medidas</button>
+<div class="linha-medidas">
+  <button class="btn-saiba" onclick="toggleInfo(this)">
+    Medidas
+  </button>
+</div>
+  
 
   <div class="medidas" style="display: none;">
     <strong>Tamanho único</strong><br>
     Boca - 19,5 cm<br>
     Altura - 16 cm<br>
     Fundo - 17 cm<br>
-
   </div>
+
+<div class="controle-compra">
+  <button class="btn-saiba" onclick="adicionarProduto(this)">
+    Adicionar ao carrinho
+  </button>
+</div>
+
 </div>
 
         <div class="produto">
@@ -575,8 +701,25 @@ function toggleBloco(button, textoOriginal) {
     Boca - 18 cm<br>
     Altura - 21 cm<br>
     Fundo - 14 cm<br>
+  </div>
+
+<div class="controle-compra">
+
+    <div class="campo">
+      <label>Tamanho</label>
+      <select class="opcao">
+        <option value="P" data-preco="6">P – R$ 6</option>
+        <option value="M" data-preco="8">M – R$ 8</option>
+        <option value="G" data-preco="10">G – R$ 10</option>
+      </select>
+    </div>
+
+    <button class="btn-saiba" onclick="adicionarProduto(this)">
+      Adicionar ao carrinho
+    </button>
 
   </div>
+
 </div>
 
 
@@ -603,8 +746,25 @@ function toggleBloco(button, textoOriginal) {
     Boca - 21 cm<br>
     Altura - 18 cm<br>
     Fundo - 12 cm<br>
+  </div>
+
+<div class="controle-compra">
+
+    <div class="campo">
+      <label>Tamanho</label>
+      <select class="opcao">
+        <option value="P" data-preco="6">P – R$ 6</option>
+        <option value="M" data-preco="8">M – R$ 8</option>
+        <option value="G" data-preco="10">G – R$ 10</option>
+      </select>
+    </div>
+
+    <button class="btn-saiba" onclick="adicionarProduto(this)">
+      Adicionar ao carrinho
+    </button>
 
   </div>
+
 </div>
 
 <div class="produto">
@@ -630,8 +790,25 @@ function toggleBloco(button, textoOriginal) {
     Boca - 20 cm<br>
     Altura - 17 cm<br>
     Fundo - 12 cm<br>
+  </div>
+
+<div class="controle-compra">
+
+    <div class="campo">
+      <label>Tamanho</label>
+      <select class="opcao">
+        <option value="P" data-preco="6">P – R$ 6</option>
+        <option value="M" data-preco="8">M – R$ 8</option>
+        <option value="G" data-preco="10">G – R$ 10</option>
+      </select>
+    </div>
+
+    <button class="btn-saiba" onclick="adicionarProduto(this)">
+      Adicionar ao carrinho
+    </button>
 
   </div>
+
 </div>
 
 <div class="produto">
@@ -657,8 +834,25 @@ function toggleBloco(button, textoOriginal) {
     Boca - 21 cm<br>
     Altura - 17 cm<br>
     Fundo - 18 cm<br>
+  </div>
+
+<div class="controle-compra">
+
+    <div class="campo">
+      <label>Tamanho</label>
+      <select class="opcao">
+        <option value="P" data-preco="6">P – R$ 6</option>
+        <option value="M" data-preco="8">M – R$ 8</option>
+        <option value="G" data-preco="10">G – R$ 10</option>
+      </select>
+    </div>
+
+    <button class="btn-saiba" onclick="adicionarProduto(this)">
+      Adicionar ao carrinho
+    </button>
 
   </div>
+
 </div>
 
 <div class="produto">
@@ -684,8 +878,25 @@ function toggleBloco(button, textoOriginal) {
     Boca - 17 cm<br>
     Altura - 22 cm<br>
     Fundo - 16 cm<br>
+  </div>
+
+<div class="controle-compra">
+
+    <div class="campo">
+      <label>Tamanho</label>
+      <select class="opcao">
+        <option value="P" data-preco="8">P – R$ 8</option>
+        <option value="M" data-preco="10">M – R$ 10</option>
+        <option value="G" data-preco="15">G – R$ 15</option>
+      </select>
+    </div>
+
+    <button class="btn-saiba" onclick="adicionarProduto(this)">
+      Adicionar ao carrinho
+    </button>
 
   </div>
+
 </div>
 
      <div class="produto">
@@ -708,24 +919,51 @@ function toggleBloco(button, textoOriginal) {
    <strong>G</strong><br>
     Altura - 26 cm<br>
     Fundo - 21 cm<br>
+  </div>
+
+<div class="controle-compra">
+
+    <div class="campo">
+      <label>Tamanho</label>
+      <select class="opcao">
+        <option value="P" data-preco="10">P – R$ 10</option>
+        <option value="M" data-preco="15">M – R$ 15</option>
+        <option value="G" data-preco="20">G – R$ 20</option>
+      </select>
+    </div>
+
+    <button class="btn-saiba" onclick="adicionarProduto(this)">
+      Adicionar ao carrinho
+    </button>
 
   </div>
+
 </div>
 
-   <div class="produto">
+   <div class="produto" data-preco="7">
             <img src="peca6.jpg" alt="Castiçal">
             <h3>Castiçal</h3>
             <p>1 unidade</p>
             <p>Tamanho único - R$ 7</p>
 
-<button class="btn-saiba" onclick="toggleInfo(this, 'Medidas')">Medidas</button>
+<div class="linha-medidas">
+  <button class="btn-saiba" onclick="toggleInfo(this)">
+    Medidas
+  </button>
+</div>
 
   <div class="medidas" style="display: none;">
     <strong>Tamanho único</strong><br>
     Altura - 4 cm<br>
     Fundo - 10 cm<br>
-
   </div>
+
+<div class="controle-compra">
+  <button class="btn-saiba" onclick="adicionarProduto(this)">
+    Adicionar ao carrinho
+  </button>
+</div>
+
 </div>
 
     <div class="produto">
@@ -751,17 +989,38 @@ function toggleBloco(button, textoOriginal) {
     Boca - 13 cm<br>
     Altura - 28 cm<br>
     Fundo - 12 cm<br>
- 
   </div>
+
+<div class="controle-compra">
+
+    <div class="campo">
+      <label>Tamanho</label>
+      <select class="opcao">
+        <option value="P" data-preco="10">P – R$ 10</option>
+        <option value="M" data-preco="15">M – R$ 15</option>
+        <option value="G" data-preco="20">G – R$ 20</option>
+      </select>
+    </div>
+
+    <button class="btn-saiba" onclick="adicionarProduto(this)">
+      Adicionar ao carrinho
+    </button>
+
+  </div>
+
 </div>
 
-     <div class="produto">
+     <div class="produto" data-preco="10">
             <img src="peca8.jpg" alt="Mantegueira em Argila">
             <h3>Mantegueira em Argila</h3>
             <p>1 unidade</p>
             <p>Tamanho único - R$ 10 </p>
            
-<button class="btn-saiba" onclick="toggleInfo(this, 'Medidas')">Medidas</button>
+<div class="linha-medidas">
+  <button class="btn-saiba" onclick="toggleInfo(this)">
+    Medidas
+  </button>
+</div>
 
   <div class="medidas" style="display: none;">
     <strong>Tampa</strong><br>
@@ -772,8 +1031,14 @@ function toggleBloco(button, textoOriginal) {
     Altura - 2 cm<br>
     Boca - 20 cm<br>
     Fundo - 18 cm<br>
- 
   </div>
+
+<div class="controle-compra">
+  <button class="btn-saiba" onclick="adicionarProduto(this)">
+    Adicionar ao carrinho
+  </button>
+</div>
+
 </div>
 
  </div> 
@@ -792,13 +1057,17 @@ function toggleBloco(button, textoOriginal) {
 
     <div class="galeria">
 
-<div class="produto">
+<div class="produto" data-preco="120">
   <img src="esmaltado1.jpg" alt="Bebedouro e Comedouro para pet">
   <h3>Kit 1 - 8 peças</h3>
   <p>1 unidade</p>
   <p>R$ 120</p>
 
- <button class="btn-saiba" onclick="toggleInfo(this, 'Medidas')">Medidas</button>
+<div class="linha-medidas">
+  <button class="btn-saiba" onclick="toggleInfo(this)">
+    Medidas
+  </button>
+</div>
 
   <div class="medidas" style="display: none;">
     <strong>Prato G</strong><br>
@@ -821,15 +1090,25 @@ function toggleBloco(button, textoOriginal) {
     Altura - 5 cm<br>
     Fundo - 3 cm<br>
   </div>
+
+<div class="controle-compra">
+  <button class="btn-saiba" onclick="adicionarProduto(this)">
+    Adicionar ao carrinho
+  </button>
+</div>
 </div> 
 
-<div class="produto">
+<div class="produto" data-preco="130">
   <img src="esmaltado2.jpg" alt="Bebedouro e Comedouro para pet">
   <h3>Kit 2 - 8 peças</h3>
   <p>1 unidade</p>
   <p>R$ 130</p>
 
- <button class="btn-saiba" onclick="toggleInfo(this, 'Medidas')">Medidas</button>
+<div class="linha-medidas">
+  <button class="btn-saiba" onclick="toggleInfo(this)">
+    Medidas
+  </button>
+</div>
 
   <div class="medidas" style="display: none;">
     <strong>Prato G</strong><br>
@@ -862,15 +1141,26 @@ function toggleBloco(button, textoOriginal) {
     Altura - 3 cm<br>
     Fundo - 5,5 cm<br>
   </div>
+
+<div class="controle-compra">
+  <button class="btn-saiba" onclick="adicionarProduto(this)">
+    Adicionar ao carrinho
+  </button>
 </div>
 
-<div class="produto">
+</div>
+
+<div class="produto" data-preco="115">
   <img src="esmaltado3.jpg" alt="Bebedouro e Comedouro para pet">
   <h3>Kit 3 - 6 peças</h3>
   <p>1 unidade</p>
   <p>R$ 115</p>
 
- <button class="btn-saiba" onclick="toggleInfo(this, 'Medidas')">Medidas</button>
+<div class="linha-medidas">
+  <button class="btn-saiba" onclick="toggleInfo(this)">
+    Medidas
+  </button>
+</div>
 
   <div class="medidas" style="display: none;">
     <strong>Prato G</strong><br>
@@ -898,15 +1188,25 @@ function toggleBloco(button, textoOriginal) {
     Altura - 5 cm<br>
     Fundo - 3 cm<br>
   </div>
+
+<div class="controle-compra">
+  <button class="btn-saiba" onclick="adicionarProduto(this)">
+    Adicionar ao carrinho
+  </button>
+</div>
 </div>
 
-<div class="produto">
+<div class="produto" data-preco="65">
   <img src="esmaltado4.jpg" alt="Bebedouro e Comedouro para pet">
   <h3>Kit 4 - 5 peças</h3>
   <p>1 unidade</p>
   <p>R$ 65</p>
 
- <button class="btn-saiba" onclick="toggleInfo(this, 'Medidas')">Medidas</button>
+<div class="linha-medidas">
+  <button class="btn-saiba" onclick="toggleInfo(this)">
+    Medidas
+  </button>
+</div>
 
   <div class="medidas" style="display: none;">
     <strong>Prato P</strong><br>
@@ -929,15 +1229,26 @@ function toggleBloco(button, textoOriginal) {
     Altura - 3 cm<br>
     Fundo - 5,5 cm<br>
   </div>
+
+<div class="controle-compra">
+  <button class="btn-saiba" onclick="adicionarProduto(this)">
+    Adicionar ao carrinho
+  </button>
 </div>
 
-<div class="produto">
+</div>
+
+<div class="produto" data-preco="50">
   <img src="esmaltado5.jpg" alt="Bebedouro e Comedouro para pet">
   <h3>Kit 5 - 4 peças</h3>
   <p>1 unidade</p>
   <p>R$ 50</p>
 
- <button class="btn-saiba" onclick="toggleInfo(this, 'Medidas')">Medidas</button>
+<div class="linha-medidas">
+  <button class="btn-saiba" onclick="toggleInfo(this)">
+    Medidas
+  </button>
+</div>
 
   <div class="medidas" style="display: none;">
     <strong>Prato P</strong><br>
@@ -955,15 +1266,26 @@ function toggleBloco(button, textoOriginal) {
     Altura - 3 cm<br>
     Fundo - 5,5 cm<br>
   </div>
+
+<div class="controle-compra">
+  <button class="btn-saiba" onclick="adicionarProduto(this)">
+    Adicionar ao carrinho
+  </button>
 </div>
 
-<div class="produto">
+</div>
+
+<div class="produto" data-preco="75">
   <img src="esmaltado6.jpg" alt="Bebedouro e Comedouro para pet">
   <h3>Kit 6 - 6 peças</h3>
   <p>1 unidade</p>
   <p>R$ 75</p>
 
- <button class="btn-saiba" onclick="toggleInfo(this, 'Medidas')">Medidas</button>
+<div class="linha-medidas">
+  <button class="btn-saiba" onclick="toggleInfo(this)">
+    Medidas
+  </button>
+</div>
 
   <div class="medidas" style="display: none;">
     <strong>Prato P</strong><br>
@@ -986,15 +1308,26 @@ function toggleBloco(button, textoOriginal) {
     Altura - 3 cm<br>
     Fundo - 5,5 cm<br>
   </div>
+
+<div class="controle-compra">
+  <button class="btn-saiba" onclick="adicionarProduto(this)">
+    Adicionar ao carrinho
+  </button>
 </div>
 
-<div class="produto">
+</div>
+
+<div class="produto" data-preco="95">
   <img src="esmaltado7.jpg" alt="Bebedouro e Comedouro para pet">
   <h3>Kit 7 - 6 peças</h3>
   <p>1 unidade</p>
   <p>R$ 95</p>
 
- <button class="btn-saiba" onclick="toggleInfo(this, 'Medidas')">Medidas</button>
+<div class="linha-medidas">
+  <button class="btn-saiba" onclick="toggleInfo(this)">
+    Medidas
+  </button>
+</div>
 
   <div class="medidas" style="display: none;">
     <strong>Prato G</strong><br>
@@ -1016,17 +1349,27 @@ function toggleBloco(button, textoOriginal) {
     Boca - 9 cm<br>
     Altura - 3 cm<br>
     Fundo - 5,5 cm<br>
-
   </div>
+
+<div class="controle-compra">
+  <button class="btn-saiba" onclick="adicionarProduto(this)">
+    Adicionar ao carrinho
+  </button>
 </div>
 
-<div class="produto">
+</div>
+
+<div class="produto" data-preco="55">
   <img src="esmaltado8.jpg" alt="Bebedouro e Comedouro para pet">
   <h3>Kit 8 - 5 peças</h3>
   <p>1 unidade</p>
   <p>R$ 55</p>
 
- <button class="btn-saiba" onclick="toggleInfo(this, 'Medidas')">Medidas</button>
+<div class="linha-medidas">
+  <button class="btn-saiba" onclick="toggleInfo(this)">
+    Medidas
+  </button>
+</div>
 
   <div class="medidas" style="display: none;">
     <strong>Prato P</strong><br>
@@ -1048,17 +1391,27 @@ function toggleBloco(button, textoOriginal) {
     Boca - 9 cm<br>
     Altura - 3 cm<br>
     Fundo - 5,5 cm<br>
-
   </div>
+
+<div class="controle-compra">
+  <button class="btn-saiba" onclick="adicionarProduto(this)">
+    Adicionar ao carrinho
+  </button>
 </div>
 
-<div class="produto">
+</div>
+
+<div class="produto" data-preco="90">
   <img src="esmaltado9.jpg" alt="Bebedouro e Comedouro para pet">
   <h3>Kit 9 - 4 peças</h3>
   <p>1 unidade</p>
   <p>R$ 90</p>
 
- <button class="btn-saiba" onclick="toggleInfo(this, 'Medidas')">Medidas</button>
+<div class="linha-medidas">
+  <button class="btn-saiba" onclick="toggleInfo(this)">
+    Medidas
+  </button>
+</div>
 
   <div class="medidas" style="display: none;">
     <strong>Prato G</strong><br>
@@ -1076,15 +1429,26 @@ function toggleBloco(button, textoOriginal) {
     Altura - 13 cm<br>
     Fundo - 5 cm<br>
   </div>
+
+<div class="controle-compra">
+  <button class="btn-saiba" onclick="adicionarProduto(this)">
+    Adicionar ao carrinho
+  </button>
 </div>
 
-<div class="produto">
+</div>
+
+<div class="produto" data-preco="130">
   <img src="esmaltado10.jpg" alt="Bebedouro e Comedouro para pet">
   <h3>Kit 10 - 6 peças</h3>
   <p>1 unidade</p>
   <p>R$ 130</p>
 
- <button class="btn-saiba" onclick="toggleInfo(this, 'Medidas')">Medidas</button>
+<div class="linha-medidas">
+  <button class="btn-saiba" onclick="toggleInfo(this)">
+    Medidas
+  </button>
+</div>
 
   <div class="medidas" style="display: none;">
     <strong>Prato G</strong><br>
@@ -1107,15 +1471,26 @@ function toggleBloco(button, textoOriginal) {
     Altura - 7 cm<br>
     Fundo - 4 cm<br>
   </div>
+
+<div class="controle-compra">
+  <button class="btn-saiba" onclick="adicionarProduto(this)">
+    Adicionar ao carrinho
+  </button>
 </div>
 
-<div class="produto">
+</div>
+
+<div class="produto" data-preco="80">
   <img src="esmaltado11.jpg" alt="Bebedouro e Comedouro para pet">
   <h3>Kit 11 - 5 peças</h3>
   <p>1 unidade</p>
   <p>R$ 80</p>
 
- <button class="btn-saiba" onclick="toggleInfo(this, 'Medidas')">Medidas</button>
+<div class="linha-medidas">
+  <button class="btn-saiba" onclick="toggleInfo(this)">
+    Medidas
+  </button>
+</div>
 
   <div class="medidas" style="display: none;">
     <strong>Gamela</strong><br>
@@ -1133,15 +1508,26 @@ function toggleBloco(button, textoOriginal) {
     Altura - 7 cm<br>
     Fundo - 4 cm<br>
   </div>
+
+<div class="controle-compra">
+  <button class="btn-saiba" onclick="adicionarProduto(this)">
+    Adicionar ao carrinho
+  </button>
 </div>
 
-<div class="produto">
+</div>
+
+<div class="produto" data-preco="55">
   <img src="esmaltado12.jpg" alt="Bebedouro e Comedouro para pet">
   <h3>Kit 12 - 4 peças</h3>
   <p>1 unidade</p>
   <p>R$ 55</p>
 
- <button class="btn-saiba" onclick="toggleInfo(this, 'Medidas')">Medidas</button>
+<div class="linha-medidas">
+  <button class="btn-saiba" onclick="toggleInfo(this)">
+    Medidas
+  </button>
+</div>
 
   <div class="medidas" style="display: none;">
     <strong>Prato P</strong><br>
@@ -1159,15 +1545,26 @@ function toggleBloco(button, textoOriginal) {
     Altura - 7 cm<br>
     Fundo - 5 cm<br>
   </div>
+
+<div class="controle-compra">
+  <button class="btn-saiba" onclick="adicionarProduto(this)">
+    Adicionar ao carrinho
+  </button>
 </div>
 
-<div class="produto">
+</div>
+
+<div class="produto" data-preco="65">
   <img src="esmaltado13.jpg" alt="Bebedouro e Comedouro para pet">
   <h3>Kit 13 - 5 peças</h3>
   <p>1 unidade</p>
   <p>R$ 65</p>
 
- <button class="btn-saiba" onclick="toggleInfo(this, 'Medidas')">Medidas</button>
+<div class="linha-medidas">
+  <button class="btn-saiba" onclick="toggleInfo(this)">
+    Medidas
+  </button>
+</div>
 
   <div class="medidas" style="display: none;">
     <strong>Prato P</strong><br>
@@ -1190,15 +1587,26 @@ function toggleBloco(button, textoOriginal) {
     Altura - 3 cm<br>
     Fundo - 5,5 cm<br>
   </div>
+
+<div class="controle-compra">
+  <button class="btn-saiba" onclick="adicionarProduto(this)">
+    Adicionar ao carrinho
+  </button>
 </div>
 
-<div class="produto">
+</div>
+
+<div class="produto" data-preco="65">
   <img src="esmaltado14.jpg" alt="Bebedouro e Comedouro para pet">
   <h3>Kit 14 - 5 peças</h3>
   <p>1 unidade</p>
   <p>R$ 65</p>
 
- <button class="btn-saiba" onclick="toggleInfo(this, 'Medidas')">Medidas</button>
+<div class="linha-medidas">
+  <button class="btn-saiba" onclick="toggleInfo(this)">
+    Medidas
+  </button>
+</div>
 
   <div class="medidas" style="display: none;">
     <strong>Prato P</strong><br>
@@ -1216,15 +1624,26 @@ function toggleBloco(button, textoOriginal) {
     Altura - 7 cm<br>
     Fundo - 5 cm<br>
   </div>
+
+<div class="controle-compra">
+  <button class="btn-saiba" onclick="adicionarProduto(this)">
+    Adicionar ao carrinho
+  </button>
 </div>
 
-<div class="produto">
+</div>
+
+<div class="produto" data-preco="50">
   <img src="esmaltado15.jpg" alt="Bebedouro e Comedouro para pet">
   <h3>Kit 15 - 2 peças</h3>
   <p>1 unidade</p>
   <p>R$ 50</p>
 
- <button class="btn-saiba" onclick="toggleInfo(this, 'Medidas')">Medidas</button>
+<div class="linha-medidas">
+  <button class="btn-saiba" onclick="toggleInfo(this)">
+    Medidas
+  </button>
+</div>
 
   <div class="medidas" style="display: none;">
     <strong>Gamela</strong><br>
@@ -1237,15 +1656,26 @@ function toggleBloco(button, textoOriginal) {
     Altura - 13 cm<br>
     Fundo - 5 cm<br>
   </div>
+
+<div class="controle-compra">
+  <button class="btn-saiba" onclick="adicionarProduto(this)">
+    Adicionar ao carrinho
+  </button>
 </div>
 
-<div class="produto">
+</div>
+
+<div class="produto" data-preco="60">
   <img src="esmaltado16.jpg" alt="Bebedouro e Comedouro para pet">
   <h3>Kit 16 - 3 peças</h3>
   <p>1 unidade</p>
   <p>R$ 60</p>
 
- <button class="btn-saiba" onclick="toggleInfo(this, 'Medidas')">Medidas</button>
+<div class="linha-medidas">
+  <button class="btn-saiba" onclick="toggleInfo(this)">
+    Medidas
+  </button>
+</div>
 
   <div class="medidas" style="display: none;">
     <strong>Prato P</strong><br>
@@ -1263,6 +1693,13 @@ function toggleBloco(button, textoOriginal) {
     Altura - 7 cm<br>
     Fundo - 4 cm<br>
   </div>
+
+<div class="controle-compra">
+  <button class="btn-saiba" onclick="adicionarProduto(this)">
+    Adicionar ao carrinho
+  </button>
+</div>
+
 </div>
 
 <div class="produto">
@@ -1289,6 +1726,25 @@ function toggleBloco(button, textoOriginal) {
     Altura - 10 cm<br>
     Fundo - 12 cm<br>
   </div>
+
+<div class="controle-compra">
+
+    <div class="campo">
+      <label>Tamanho</label>
+      <select class="opcao">
+        <option value="Kit" data-preco="70">Kit – R$ 70</option>
+        <option value="P" data-preco="20">P – R$ 20</option>
+        <option value="M" data-preco="25">M – R$ 25</option>
+        <option value="G" data-preco="30">G – R$ 30</option>
+      </select>
+    </div>
+
+    <button class="btn-saiba" onclick="adicionarProduto(this)">
+      Adicionar ao carrinho
+    </button>
+
+  </div>
+
 </div>
 
 <div class="produto">
@@ -1331,14 +1787,47 @@ function toggleBloco(button, textoOriginal) {
       • Ródio<br>
       • Marfim<br>
       • Branco<br>
-
     </div>
   </div>
 </div>
+
+<div class="controle-compra">
+  <div class="campo">
+    <label>Tamanho</label>
+    <select class="opcao">
+      <option value="P" data-preco="20">P – R$ 20</option>
+      <option value="M" data-preco="35">M – R$ 35</option>
+      <option value="G" data-preco="50">G – R$ 50</option>
+    </select>
+  </div>
+
+  <div class="campo">
+    <label>Cor</label>
+    <select class="cor-selecionada">
+      <option value="Verde">Verde</option>
+      <option value="Jade">Jade</option>
+      <option value="Tiffany">Tiffany</option>
+      <option value="Azul Celeste">Azul Celeste</option>
+      <option value="Azul Escuro">Azul Escuro</option>
+      <option value="Amarelo">Amarelo</option>
+      <option value="Vermelho">Vermelho</option>
+      <option value="Laranja">Laranja</option>
+      <option value="Caramelo">Caramelo</option>
+      <option value="Ródio">Ródio</option>
+      <option value="Marfim">Marfim</option>
+      <option value="Branco">Branco</option>
+    </select>
+  </div>
+
+  <button class="btn-saiba" onclick="adicionarProduto(this)">
+    Adicionar ao carrinho
+  </button>
+</div>
+
 </div>
 
 
-<div class="produto">
+<div class="produto" data-preco="30">
   <img src="esmaltado19.jpg" alt="Bebedouro e Comedouro para pet">
   <h3>Cachepô Maori</h3>
   <p>1 unidade</p>
@@ -1376,9 +1865,34 @@ function toggleBloco(button, textoOriginal) {
     </div>
   </div>
 </div>
+
+<div class="controle-compra">
+  <div class="campo">
+    <label>Cor</label>
+    <select class="cor-selecionada">
+      <option value="Verde">Verde</option>
+      <option value="Jade">Jade</option>
+      <option value="Tiffany">Tiffany</option>
+      <option value="Azul Celeste">Azul Celeste</option>
+      <option value="Azul Escuro">Azul Escuro</option>
+      <option value="Amarelo">Amarelo</option>
+      <option value="Vermelho">Vermelho</option>
+      <option value="Laranja">Laranja</option>
+      <option value="Caramelo">Caramelo</option>
+      <option value="Ródio">Ródio</option>
+      <option value="Marfim">Marfim</option>
+      <option value="Branco">Branco</option>
+    </select>
+  </div>
+
+  <button class="btn-saiba" onclick="adicionarProduto(this)">
+    Adicionar ao carrinho
+  </button>
 </div>
 
-<div class="produto">
+</div>
+
+<div class="produto" data-preco="30">
   <img src="esmaltado20.jpg" alt="Bebedouro e Comedouro para pet">
   <h3>Cachepô Maori - Boca quadrada</h3>
   <p>1 unidade</p>
@@ -1416,6 +1930,31 @@ function toggleBloco(button, textoOriginal) {
     </div>
   </div>
 </div>
+
+<div class="controle-compra">
+  <div class="campo">
+    <label>Cor</label>
+    <select class="cor-selecionada">
+      <option value="Verde">Verde</option>
+      <option value="Jade">Jade</option>
+      <option value="Tiffany">Tiffany</option>
+      <option value="Azul Celeste">Azul Celeste</option>
+      <option value="Azul Escuro">Azul Escuro</option>
+      <option value="Amarelo">Amarelo</option>
+      <option value="Vermelho">Vermelho</option>
+      <option value="Laranja">Laranja</option>
+      <option value="Caramelo">Caramelo</option>
+      <option value="Ródio">Ródio</option>
+      <option value="Marfim">Marfim</option>
+      <option value="Branco">Branco</option>
+    </select>
+  </div>
+
+  <button class="btn-saiba" onclick="adicionarProduto(this)">
+    Adicionar ao carrinho
+  </button>
+</div>
+
 </div>
 
 <div class="produto">
@@ -1465,6 +2004,40 @@ function toggleBloco(button, textoOriginal) {
     </div>
   </div>
 </div>
+
+<div class="controle-compra">
+  <div class="campo">
+    <label>Tamanho</label>
+    <select class="opcao">
+      <option value="P" data-preco="25">P – R$ 25</option>
+      <option value="M" data-preco="35">M – R$ 35</option>
+      <option value="G" data-preco="45">G – R$ 45</option>
+    </select>
+  </div>
+
+  <div class="campo">
+    <label>Cor</label>
+    <select class="cor-selecionada">
+      <option value="Verde">Verde</option>
+      <option value="Jade">Jade</option>
+      <option value="Tiffany">Tiffany</option>
+      <option value="Azul Celeste">Azul Celeste</option>
+      <option value="Azul Escuro">Azul Escuro</option>
+      <option value="Amarelo">Amarelo</option>
+      <option value="Vermelho">Vermelho</option>
+      <option value="Laranja">Laranja</option>
+      <option value="Caramelo">Caramelo</option>
+      <option value="Ródio">Ródio</option>
+      <option value="Marfim">Marfim</option>
+      <option value="Branco">Branco</option>
+    </select>
+  </div>
+
+  <button class="btn-saiba" onclick="adicionarProduto(this)">
+    Adicionar ao carrinho
+  </button>
+</div>
+
 </div>
 
 <div class="produto">
@@ -1514,6 +2087,40 @@ function toggleBloco(button, textoOriginal) {
     </div>
   </div>
 </div>
+
+<div class="controle-compra">
+  <div class="campo">
+    <label>Tamanho</label>
+    <select class="opcao">
+      <option value="P" data-preco="30">P – R$ 30</option>
+      <option value="M" data-preco="40">M – R$ 40</option>
+      <option value="G" data-preco="50">G – R$ 50</option>
+    </select>
+  </div>
+
+  <div class="campo">
+    <label>Cor</label>
+    <select class="cor-selecionada">
+      <option value="Verde">Verde</option>
+      <option value="Jade">Jade</option>
+      <option value="Tiffany">Tiffany</option>
+      <option value="Azul Celeste">Azul Celeste</option>
+      <option value="Azul Escuro">Azul Escuro</option>
+      <option value="Amarelo">Amarelo</option>
+      <option value="Vermelho">Vermelho</option>
+      <option value="Laranja">Laranja</option>
+      <option value="Caramelo">Caramelo</option>
+      <option value="Ródio">Ródio</option>
+      <option value="Marfim">Marfim</option>
+      <option value="Branco">Branco</option>
+    </select>
+  </div>
+
+  <button class="btn-saiba" onclick="adicionarProduto(this)">
+    Adicionar ao carrinho
+  </button>
+</div>
+
 </div>
 
 <div class="produto">
@@ -1563,6 +2170,40 @@ function toggleBloco(button, textoOriginal) {
     </div>
   </div>
 </div>
+
+<div class="controle-compra">
+  <div class="campo">
+    <label>Tamanho</label>
+    <select class="opcao">
+      <option value="P" data-preco="25">P – R$ 25</option>
+      <option value="M" data-preco="35">M – R$ 35</option>
+      <option value="G" data-preco="45">G – R$ 45</option>
+    </select>
+  </div>
+
+  <div class="campo">
+    <label>Cor</label>
+    <select class="cor-selecionada">
+      <option value="Verde">Verde</option>
+      <option value="Jade">Jade</option>
+      <option value="Tiffany">Tiffany</option>
+      <option value="Azul Celeste">Azul Celeste</option>
+      <option value="Azul Escuro">Azul Escuro</option>
+      <option value="Amarelo">Amarelo</option>
+      <option value="Vermelho">Vermelho</option>
+      <option value="Laranja">Laranja</option>
+      <option value="Caramelo">Caramelo</option>
+      <option value="Ródio">Ródio</option>
+      <option value="Marfim">Marfim</option>
+      <option value="Branco">Branco</option>
+    </select>
+  </div>
+
+  <button class="btn-saiba" onclick="adicionarProduto(this)">
+    Adicionar ao carrinho
+  </button>
+</div>
+
 </div>
 
 <div class="produto">
@@ -1612,7 +2253,42 @@ function toggleBloco(button, textoOriginal) {
     </div>
   </div>
 </div>
+
+<div class="controle-compra">
+  <div class="campo">
+    <label>Tamanho</label>
+    <select class="opcao">
+      <option value="P" data-preco="30">P – R$ 30</option>
+      <option value="M" data-preco="42">M – R$ 42</option>
+      <option value="G" data-preco="54">G – R$ 54</option>
+    </select>
+  </div>
+
+  <div class="campo">
+    <label>Cor</label>
+    <select class="cor-selecionada">
+      <option value="Verde">Verde</option>
+      <option value="Jade">Jade</option>
+      <option value="Tiffany">Tiffany</option>
+      <option value="Azul Celeste">Azul Celeste</option>
+      <option value="Azul Escuro">Azul Escuro</option>
+      <option value="Amarelo">Amarelo</option>
+      <option value="Vermelho">Vermelho</option>
+      <option value="Laranja">Laranja</option>
+      <option value="Caramelo">Caramelo</option>
+      <option value="Ródio">Ródio</option>
+      <option value="Marfim">Marfim</option>
+      <option value="Branco">Branco</option>
+    </select>
+  </div>
+
+  <button class="btn-saiba" onclick="adicionarProduto(this)">
+    Adicionar ao carrinho
+  </button>
 </div>
+
+</div>
+
 <div class="produto">
   <img src="esmaltado24.5.jpg" alt="Bebedouro e Comedouro para pet">
   <h3>Cachepô Bola - Vulcan</h3>
@@ -1659,6 +2335,40 @@ function toggleBloco(button, textoOriginal) {
     </div>
   </div>
 </div>
+
+<div class="controle-compra">
+  <div class="campo">
+    <label>Tamanho</label>
+    <select class="opcao">
+      <option value="P" data-preco="30">P – R$ 30</option>
+      <option value="M" data-preco="42">M – R$ 42</option>
+      <option value="G" data-preco="54">G – R$ 54</option>
+    </select>
+  </div>
+
+  <div class="campo">
+    <label>Cor</label>
+    <select class="cor-selecionada">
+      <option value="Verde">Verde</option>
+      <option value="Jade">Jade</option>
+      <option value="Tiffany">Tiffany</option>
+      <option value="Azul Celeste">Azul Celeste</option>
+      <option value="Azul Escuro">Azul Escuro</option>
+      <option value="Amarelo">Amarelo</option>
+      <option value="Vermelho">Vermelho</option>
+      <option value="Laranja">Laranja</option>
+      <option value="Caramelo">Caramelo</option>
+      <option value="Ródio">Ródio</option>
+      <option value="Marfim">Marfim</option>
+      <option value="Branco">Branco</option>
+    </select>
+  </div>
+
+  <button class="btn-saiba" onclick="adicionarProduto(this)">
+    Adicionar ao carrinho
+  </button>
+</div>
+
 </div>
 
 
@@ -1709,6 +2419,40 @@ function toggleBloco(button, textoOriginal) {
     </div>
   </div>
 </div>
+
+<div class="controle-compra">
+  <div class="campo">
+    <label>Tamanho</label>
+    <select class="opcao">
+      <option value="P" data-preco="25">P – R$ 25</option>
+      <option value="M" data-preco="35">M – R$ 35</option>
+      <option value="G" data-preco="45">G – R$ 45</option>
+    </select>
+  </div>
+
+  <div class="campo">
+    <label>Cor</label>
+    <select class="cor-selecionada">
+      <option value="Verde">Verde</option>
+      <option value="Jade">Jade</option>
+      <option value="Tiffany">Tiffany</option>
+      <option value="Azul Celeste">Azul Celeste</option>
+      <option value="Azul Escuro">Azul Escuro</option>
+      <option value="Amarelo">Amarelo</option>
+      <option value="Vermelho">Vermelho</option>
+      <option value="Laranja">Laranja</option>
+      <option value="Caramelo">Caramelo</option>
+      <option value="Ródio">Ródio</option>
+      <option value="Marfim">Marfim</option>
+      <option value="Branco">Branco</option>
+    </select>
+  </div>
+
+  <button class="btn-saiba" onclick="adicionarProduto(this)">
+    Adicionar ao carrinho
+  </button>
+</div>
+
 </div>
 
 
@@ -1759,6 +2503,40 @@ function toggleBloco(button, textoOriginal) {
     </div>
   </div>
 </div>
+
+<div class="controle-compra">
+  <div class="campo">
+    <label>Tamanho</label>
+    <select class="opcao">
+      <option value="P" data-preco="25">P – R$ 25</option>
+      <option value="M" data-preco="35">M – R$ 35</option>
+      <option value="G" data-preco="45">G – R$ 45</option>
+    </select>
+  </div>
+
+  <div class="campo">
+    <label>Cor</label>
+    <select class="cor-selecionada">
+      <option value="Verde">Verde</option>
+      <option value="Jade">Jade</option>
+      <option value="Tiffany">Tiffany</option>
+      <option value="Azul Celeste">Azul Celeste</option>
+      <option value="Azul Escuro">Azul Escuro</option>
+      <option value="Amarelo">Amarelo</option>
+      <option value="Vermelho">Vermelho</option>
+      <option value="Laranja">Laranja</option>
+      <option value="Caramelo">Caramelo</option>
+      <option value="Ródio">Ródio</option>
+      <option value="Marfim">Marfim</option>
+      <option value="Branco">Branco</option>
+    </select>
+  </div>
+
+  <button class="btn-saiba" onclick="adicionarProduto(this)">
+    Adicionar ao carrinho
+  </button>
+</div>
+
 </div>
 
 <div class="produto">
@@ -1808,9 +2586,43 @@ function toggleBloco(button, textoOriginal) {
     </div>
   </div>
 </div>
+
+<div class="controle-compra">
+  <div class="campo">
+    <label>Tamanho</label>
+    <select class="opcao">
+      <option value="P" data-preco="20">P – R$ 20</option>
+      <option value="M" data-preco="30">M – R$ 30</option>
+      <option value="G" data-preco="50">G – R$ 50</option>
+    </select>
+  </div>
+
+  <div class="campo">
+    <label>Cor</label>
+    <select class="cor-selecionada">
+      <option value="Verde">Verde</option>
+      <option value="Jade">Jade</option>
+      <option value="Tiffany">Tiffany</option>
+      <option value="Azul Celeste">Azul Celeste</option>
+      <option value="Azul Escuro">Azul Escuro</option>
+      <option value="Amarelo">Amarelo</option>
+      <option value="Vermelho">Vermelho</option>
+      <option value="Laranja">Laranja</option>
+      <option value="Caramelo">Caramelo</option>
+      <option value="Ródio">Ródio</option>
+      <option value="Marfim">Marfim</option>
+      <option value="Branco">Branco</option>
+    </select>
+  </div>
+
+  <button class="btn-saiba" onclick="adicionarProduto(this)">
+    Adicionar ao carrinho
+  </button>
 </div>
 
-<div class="produto">
+</div>
+
+<div class="produto" data-preco="35">
   <img src="esmaltado27.jpg" alt="Bebedouro e Comedouro para pet">
   <h3>Galeteiro - Vulcan</h3>
   <p>1 unidade</p>
@@ -1847,10 +2659,35 @@ function toggleBloco(button, textoOriginal) {
     </div>
   </div>
 </div>
+
+<div class="controle-compra">
+  <div class="campo">
+    <label>Cor</label>
+    <select class="cor-selecionada">
+      <option value="Verde">Verde</option>
+      <option value="Jade">Jade</option>
+      <option value="Tiffany">Tiffany</option>
+      <option value="Azul Celeste">Azul Celeste</option>
+      <option value="Azul Escuro">Azul Escuro</option>
+      <option value="Amarelo">Amarelo</option>
+      <option value="Vermelho">Vermelho</option>
+      <option value="Laranja">Laranja</option>
+      <option value="Caramelo">Caramelo</option>
+      <option value="Ródio">Ródio</option>
+      <option value="Marfim">Marfim</option>
+      <option value="Branco">Branco</option>
+    </select>
+  </div>
+
+  <button class="btn-saiba" onclick="adicionarProduto(this)">
+    Adicionar ao carrinho
+  </button>
+</div>
+
 </div>
 
 
-<div class="produto">
+<div class="produto" data-preco="30">
   <img src="esmaltado28.jpg" alt="Bebedouro e Comedouro para pet">
   <h3>Difusor - Vulcan</h3>
   <p>1 unidade</p>
@@ -1886,9 +2723,33 @@ function toggleBloco(button, textoOriginal) {
     </div>
   </div>
 </div>
+
+<div class="controle-compra">
+  <div class="campo">
+    <label>Cor</label>
+    <select class="cor-selecionada">
+      <option value="Verde">Verde</option>
+      <option value="Jade">Jade</option>
+      <option value="Tiffany">Tiffany</option>
+      <option value="Azul Celeste">Azul Celeste</option>
+      <option value="Azul Escuro">Azul Escuro</option>
+      <option value="Amarelo">Amarelo</option>
+      <option value="Vermelho">Vermelho</option>
+      <option value="Laranja">Laranja</option>
+      <option value="Caramelo">Caramelo</option>
+      <option value="Ródio">Ródio</option>
+      <option value="Marfim">Marfim</option>
+      <option value="Branco">Branco</option>
+    </select>
+  </div>
+
+  <button class="btn-saiba" onclick="adicionarProduto(this)">
+    Adicionar ao carrinho
+  </button>
+</div>
 </div>
 
-<div class="produto">
+<div class="produto" data-preco="40">
   <img src="esmaltado29.jpg" alt="Bebedouro e Comedouro para pet">
   <h3>Mantegueira</h3>
   <p>1 unidade</p>
@@ -1925,10 +2786,35 @@ function toggleBloco(button, textoOriginal) {
     </div>
   </div>
 </div>
+
+<div class="controle-compra">
+  <div class="campo">
+    <label>Cor</label>
+    <select class="cor-selecionada">
+      <option value="Verde">Verde</option>
+      <option value="Jade">Jade</option>
+      <option value="Tiffany">Tiffany</option>
+      <option value="Azul Celeste">Azul Celeste</option>
+      <option value="Azul Escuro">Azul Escuro</option>
+      <option value="Amarelo">Amarelo</option>
+      <option value="Vermelho">Vermelho</option>
+      <option value="Laranja">Laranja</option>
+      <option value="Caramelo">Caramelo</option>
+      <option value="Ródio">Ródio</option>
+      <option value="Marfim">Marfim</option>
+      <option value="Branco">Branco</option>
+    </select>
+  </div>
+
+  <button class="btn-saiba" onclick="adicionarProduto(this)">
+    Adicionar ao carrinho
+  </button>
+</div>
+
 </div>
 
 
-<div class="produto">
+<div class="produto" data-preco="25">
   <img src="esmaltado30.jpg" alt="Bebedouro e Comedouro para pet">
   <h3>Castiçal</h3>
   <p>1 unidade</p>
@@ -1965,10 +2851,35 @@ function toggleBloco(button, textoOriginal) {
     </div>
   </div>
 </div>
+
+<div class="controle-compra">
+  <div class="campo">
+    <label>Cor</label>
+    <select class="cor-selecionada">
+      <option value="Verde">Verde</option>
+      <option value="Jade">Jade</option>
+      <option value="Tiffany">Tiffany</option>
+      <option value="Azul Celeste">Azul Celeste</option>
+      <option value="Azul Escuro">Azul Escuro</option>
+      <option value="Amarelo">Amarelo</option>
+      <option value="Vermelho">Vermelho</option>
+      <option value="Laranja">Laranja</option>
+      <option value="Caramelo">Caramelo</option>
+      <option value="Ródio">Ródio</option>
+      <option value="Marfim">Marfim</option>
+      <option value="Branco">Branco</option>
+    </select>
+  </div>
+
+  <button class="btn-saiba" onclick="adicionarProduto(this)">
+    Adicionar ao carrinho
+  </button>
+</div>
+
 </div>
 
 
-<div class="produto">
+<div class="produto" data-preco="30">
   <img src="esmaltado31.jpg" alt="Bebedouro e Comedouro para pet">
   <h3>Cúia</h3>
   <p>1 unidade</p>
@@ -2005,6 +2916,31 @@ function toggleBloco(button, textoOriginal) {
     </div>
   </div>
 </div>
+
+<div class="controle-compra">
+  <div class="campo">
+    <label>Cor</label>
+    <select class="cor-selecionada">
+      <option value="Verde">Verde</option>
+      <option value="Jade">Jade</option>
+      <option value="Tiffany">Tiffany</option>
+      <option value="Azul Celeste">Azul Celeste</option>
+      <option value="Azul Escuro">Azul Escuro</option>
+      <option value="Amarelo">Amarelo</option>
+      <option value="Vermelho">Vermelho</option>
+      <option value="Laranja">Laranja</option>
+      <option value="Caramelo">Caramelo</option>
+      <option value="Ródio">Ródio</option>
+      <option value="Marfim">Marfim</option>
+      <option value="Branco">Branco</option>
+    </select>
+  </div>
+
+  <button class="btn-saiba" onclick="adicionarProduto(this)">
+    Adicionar ao carrinho
+  </button>
+</div>
+
 </div>
 
 
@@ -2055,9 +2991,43 @@ function toggleBloco(button, textoOriginal) {
     </div>
   </div>
 </div>
+
+<div class="controle-compra">
+  <div class="campo">
+    <label>Tamanho</label>
+    <select class="opcao">
+      <option value="P" data-preco="20">P – R$ 20</option>
+      <option value="M" data-preco="30">M – R$ 30</option>
+      <option value="G" data-preco="50">G – R$ 50</option>
+    </select>
+  </div>
+
+  <div class="campo">
+    <label>Cor</label>
+    <select class="cor-selecionada">
+      <option value="Verde">Verde</option>
+      <option value="Jade">Jade</option>
+      <option value="Tiffany">Tiffany</option>
+      <option value="Azul Celeste">Azul Celeste</option>
+      <option value="Azul Escuro">Azul Escuro</option>
+      <option value="Amarelo">Amarelo</option>
+      <option value="Vermelho">Vermelho</option>
+      <option value="Laranja">Laranja</option>
+      <option value="Caramelo">Caramelo</option>
+      <option value="Ródio">Ródio</option>
+      <option value="Marfim">Marfim</option>
+      <option value="Branco">Branco</option>
+    </select>
+  </div>
+
+  <button class="btn-saiba" onclick="adicionarProduto(this)">
+    Adicionar ao carrinho
+  </button>
 </div>
 
-        <div class="produto">
+</div>
+
+<div class="produto" data-preco="8">
   <img src="esmaltado35.jpg" alt="Bebedouro e Comedouro para pet">
   <h3>Copinho Licor</h3>
   <p>1 unidade</p>
@@ -2094,9 +3064,34 @@ function toggleBloco(button, textoOriginal) {
     </div>
   </div>
 </div>
+
+<div class="controle-compra">
+  <div class="campo">
+    <label>Cor</label>
+    <select class="cor-selecionada">
+      <option value="Verde">Verde</option>
+      <option value="Jade">Jade</option>
+      <option value="Tiffany">Tiffany</option>
+      <option value="Azul Celeste">Azul Celeste</option>
+      <option value="Azul Escuro">Azul Escuro</option>
+      <option value="Amarelo">Amarelo</option>
+      <option value="Vermelho">Vermelho</option>
+      <option value="Laranja">Laranja</option>
+      <option value="Caramelo">Caramelo</option>
+      <option value="Ródio">Ródio</option>
+      <option value="Marfim">Marfim</option>
+      <option value="Branco">Branco</option>
+    </select>
+  </div>
+
+  <button class="btn-saiba" onclick="adicionarProduto(this)">
+    Adicionar ao carrinho
+  </button>
 </div>
 
-<div class="produto">
+</div>
+
+<div class="produto" data-preco="12">
             <img src="esmaltado36.jpg" alt="Bebedouro Fonte para Gatos">
             <h3>Taça</h3>
             <p>1 unidade</p>
@@ -2133,9 +3128,34 @@ function toggleBloco(button, textoOriginal) {
     </div>
   </div>
 </div>
+
+<div class="controle-compra">
+  <div class="campo">
+    <label>Cor</label>
+    <select class="cor-selecionada">
+      <option value="Verde">Verde</option>
+      <option value="Jade">Jade</option>
+      <option value="Tiffany">Tiffany</option>
+      <option value="Azul Celeste">Azul Celeste</option>
+      <option value="Azul Escuro">Azul Escuro</option>
+      <option value="Amarelo">Amarelo</option>
+      <option value="Vermelho">Vermelho</option>
+      <option value="Laranja">Laranja</option>
+      <option value="Caramelo">Caramelo</option>
+      <option value="Ródio">Ródio</option>
+      <option value="Marfim">Marfim</option>
+      <option value="Branco">Branco</option>
+    </select>
+  </div>
+
+  <button class="btn-saiba" onclick="adicionarProduto(this)">
+    Adicionar ao carrinho
+  </button>
 </div>
 
-        <div class="produto">
+</div>
+
+<div class="produto" data-preco="12">
             <img src="esmaltado37.jpg" alt="Cachepô Brenan">
             <h3>Copo Canadá</h3>
             <p>1 unidade</p>
@@ -2171,9 +3191,34 @@ function toggleBloco(button, textoOriginal) {
     </div>
   </div>
 </div>
+
+<div class="controle-compra">
+  <div class="campo">
+    <label>Cor</label>
+    <select class="cor-selecionada">
+      <option value="Verde">Verde</option>
+      <option value="Jade">Jade</option>
+      <option value="Tiffany">Tiffany</option>
+      <option value="Azul Celeste">Azul Celeste</option>
+      <option value="Azul Escuro">Azul Escuro</option>
+      <option value="Amarelo">Amarelo</option>
+      <option value="Vermelho">Vermelho</option>
+      <option value="Laranja">Laranja</option>
+      <option value="Caramelo">Caramelo</option>
+      <option value="Ródio">Ródio</option>
+      <option value="Marfim">Marfim</option>
+      <option value="Branco">Branco</option>
+    </select>
+  </div>
+
+  <button class="btn-saiba" onclick="adicionarProduto(this)">
+    Adicionar ao carrinho
+  </button>
 </div>
 
-<div class="produto">
+</div>
+
+<div class="produto" data-preco="12">
             <img src="esmaltado37.5.jpg" alt="Cachepô Brenan">
             <h3>Copo Americano</h3>
             <p>1 unidade</p>
@@ -2209,10 +3254,35 @@ function toggleBloco(button, textoOriginal) {
     </div>
   </div>
 </div>
+
+<div class="controle-compra">
+  <div class="campo">
+    <label>Cor</label>
+    <select class="cor-selecionada">
+      <option value="Verde">Verde</option>
+      <option value="Jade">Jade</option>
+      <option value="Tiffany">Tiffany</option>
+      <option value="Azul Celeste">Azul Celeste</option>
+      <option value="Azul Escuro">Azul Escuro</option>
+      <option value="Amarelo">Amarelo</option>
+      <option value="Vermelho">Vermelho</option>
+      <option value="Laranja">Laranja</option>
+      <option value="Caramelo">Caramelo</option>
+      <option value="Ródio">Ródio</option>
+      <option value="Marfim">Marfim</option>
+      <option value="Branco">Branco</option>
+    </select>
+  </div>
+
+  <button class="btn-saiba" onclick="adicionarProduto(this)">
+    Adicionar ao carrinho
+  </button>
+</div>
+
 </div>
 
 
-<div class="produto">
+<div class="produto" data-preco="12">
   <img src="esmaltado34.jpg" alt="Bebedouro e Comedouro para pet">
   <h3>Xícara</h3>
   <p>1 unidade</p>
@@ -2248,10 +3318,35 @@ function toggleBloco(button, textoOriginal) {
     </div>
   </div>
 </div>
+
+<div class="controle-compra">
+  <div class="campo">
+    <label>Cor</label>
+    <select class="cor-selecionada">
+      <option value="Verde">Verde</option>
+      <option value="Jade">Jade</option>
+      <option value="Tiffany">Tiffany</option>
+      <option value="Azul Celeste">Azul Celeste</option>
+      <option value="Azul Escuro">Azul Escuro</option>
+      <option value="Amarelo">Amarelo</option>
+      <option value="Vermelho">Vermelho</option>
+      <option value="Laranja">Laranja</option>
+      <option value="Caramelo">Caramelo</option>
+      <option value="Ródio">Ródio</option>
+      <option value="Marfim">Marfim</option>
+      <option value="Branco">Branco</option>
+    </select>
+  </div>
+
+  <button class="btn-saiba" onclick="adicionarProduto(this)">
+    Adicionar ao carrinho
+  </button>
+</div>
+
 </div>
 
 
-<div class="produto">
+<div class="produto" data-preco="12">
   <img src="esmaltado33.jpg" alt="Bebedouro e Comedouro para pet">
   <h3>Copo Bally</h3>
   <p>1 unidade</p>
@@ -2287,6 +3382,31 @@ function toggleBloco(button, textoOriginal) {
     </div>
   </div>
 </div>
+
+<div class="controle-compra">
+  <div class="campo">
+    <label>Cor</label>
+    <select class="cor-selecionada">
+      <option value="Verde">Verde</option>
+      <option value="Jade">Jade</option>
+      <option value="Tiffany">Tiffany</option>
+      <option value="Azul Celeste">Azul Celeste</option>
+      <option value="Azul Escuro">Azul Escuro</option>
+      <option value="Amarelo">Amarelo</option>
+      <option value="Vermelho">Vermelho</option>
+      <option value="Laranja">Laranja</option>
+      <option value="Caramelo">Caramelo</option>
+      <option value="Ródio">Ródio</option>
+      <option value="Marfim">Marfim</option>
+      <option value="Branco">Branco</option>
+    </select>
+  </div>
+
+  <button class="btn-saiba" onclick="adicionarProduto(this)">
+    Adicionar ao carrinho
+  </button>
+</div>
+
 </div>
 
 </div>
@@ -2507,6 +3627,76 @@ document.querySelectorAll(".wiki-toggle").forEach(titulo => {
 });
 </script>
 
+<script>
+function adicionarProduto(botao) {
+    const divProduto = botao.closest('.produto');
+    const nome = divProduto.querySelector('h3').innerText;
+    const seletor = divProduto.querySelector('.opcao');
+    let preco, opcao;
+
+    if (seletor) {
+        preco = parseFloat(seletor.options[seletor.selectedIndex].getAttribute('data-preco'));
+        opcao = seletor.value;
+    } else {
+        preco = parseFloat(divProduto.getAttribute('data-preco')) || 0;
+        opcao = "Tamanho Único";
+    }
+
+opcao += buscarCorSelecionada(divProduto);
+
+    let carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
+
+    // Lógica para não duplicar itens, apenas aumentar a quantidade
+    const itemExistente = carrinho.find(item => item.nome === nome && item.opcao === opcao);
+
+    if (itemExistente) {
+        itemExistente.quantidade += 1;
+    } else {
+        carrinho.push({
+            nome: nome,
+            preco: preco,
+            opcao: opcao,
+            quantidade: 1
+        });
+    }
+
+
+    // 1. Salva no navegador
+    localStorage.setItem("carrinho", JSON.stringify(carrinho));
+
+    // 2. ATUALIZA O NÚMERO IMEDIATAMENTE (Sem precisar de F5)
+    atualizarContador();
+
+    // 3. Feedback opcional (o alert às vezes trava a execução, pode usar um console.log se preferir)
+    console.log("Carrinho atualizado!");
+}
+
+function buscarCorSelecionada(divProduto) {
+    const seletorCor = divProduto.querySelector('.cor-selecionada');
+    // Se o produto tiver o select de cor, ele retorna " - Cor", senão retorna vazio ""
+    if (seletorCor) {
+        return " - " + seletorCor.value;
+    }
+    return "";
+}
+
+// Função que altera o HTML do contador
+function atualizarContador() {
+    const carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
+    const totalItens = carrinho.reduce((soma, item) => soma + item.quantidade, 0);
+    
+    const contador = document.getElementById("contadorCarrinho");
+    if (contador) {
+        contador.innerText = totalItens;
+    }
+contador.style.color = "red"; // Muda a cor brevemente
+setTimeout(() => { contador.style.color = ""; }, 300); // Volta ao normal
+}
+
+// Garante que o número apareça ao abrir o site
+document.addEventListener("DOMContentLoaded", atualizarContador);
+
+</script>
 
 </body>
 </html>

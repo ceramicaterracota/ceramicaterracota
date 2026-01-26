@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Carrinho | Cerâmica Terracota</title>
+    <style>
+        :root {
+            --cor-principal: #a0522d;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5dc;
+            padding: 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: #fffaf0;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .item {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            border-bottom: 1px solid #ddd;
+            padding: 15px 0;
+            align-items: center;
+        }
+        .item-info {
+            flex-grow: 1;
+        }
+        .item input {
+            width: 50px;
+            padding: 5px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+        button.btn-remover {
+            background: #d9534f;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .total {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-top: 20px;
+            text-align: right;
+        }
+        .btn-voltar {
+            display: inline-block;
+            margin-bottom: 18px;
+            padding: 10px 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            background-color: var(--cor-principal);
+            color: #fff;
+        }
+        .btn-finalizar {
+            display: block;
+            width: 100%;
+            background: #25d366; /* Cor do WhatsApp */
+            color: white;
+            border: none;
+            padding: 15px;
+            font-size: 1.1em;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+    <a href="index.html" class="btn-voltar">← Voltar à loja</a>
+
+    <h1>Seu carrinho 🛒</h1>
+    <div id="lista">
+        </div>
+
+    <p class="total" id="total">Total: R$ 0,00</p>
+
+    <button class="btn-finalizar" onclick="enviarWhats()">Finalizar pedido no WhatsApp</button>
+</div>
+
+<script>
+// Puxa os dados que o index.html salvou
+let carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
+
+function renderizar() {
+    const lista = document.getElementById("lista");
+    const totalElemento = document.getElementById("total");
+    
+    if (carrinho.length === 0) {
+        lista.innerHTML = "<p>Seu carrinho está vazio.</p>";
+        totalElemento.innerText = "Total: R$ 0,00";
+        return;
+    }
+
+    lista.innerHTML = "";
+    let soma = 0;
+
+    carrinho.forEach((item, i) => {
+        const subtotal = item.preco * item.quantidade;
+        soma += subtotal;
+
+        lista.innerHTML += `
+            <div class="item">
+                <div class="item-info">
+                    <strong>${item.nome}</strong><br>
+                    <small>Opção: ${item.opcao || 'Padrão'}</small>
+                </div>
+                <div>
+                    <input type="number" min="1" value="${item.quantidade}" 
+                           onchange="alterarQtd(${i}, this.value)">
+                </div>
+                <span>R$ ${subtotal.toFixed(2)}</span>
+                <button class="btn-remover" onclick="remover(${i})">X</button>
+            </div>
+        `;
+    });
+
+    totalElemento.innerText = "Total: R$ " + soma.toFixed(2);
+}
+
+function alterarQtd(i, valor) {
+    if (valor < 1) valor = 1;
+    carrinho[i].quantidade = parseInt(valor);
+    salvarEAtualizar();
+}
+
+function remover(i) {
+    carrinho.splice(i, 1);
+    salvarEAtualizar();
+}
+
+function salvarEAtualizar() {
+    localStorage.setItem("carrinho", JSON.stringify(carrinho));
+    renderizar();
+}
+
+function enviarWhats() {
+    if (carrinho.length === 0) {
+        alert("Seu carrinho está vazio!");
+        return;
+    }
+
+    // Começamos com duas quebras de linha após a saudação
+    let texto = "Olá! Gostaria de fazer um pedido na Cerâmica Terracota:%0A%0A";
+    let totalGeral = 0;
+
+    carrinho.forEach(item => {
+        const subtotal = item.preco * item.quantidade;
+        totalGeral += subtotal;
+        
+        // %0A ao final de cada linha força o WhatsApp a pular para a próxima
+        texto += `*${item.quantidade}x* ${item.nome}%0A`;
+        texto += `(${item.opcao}) - R$ ${subtotal.toFixed(2)}%0A%0A`; 
+    });
+
+    // %0A antes do total para dar destaque
+    texto += `*Total do Pedido: R$ ${totalGeral.toFixed(2)}*`;
+
+    // Abre o WhatsApp com o texto corrigido
+    window.open("https://wa.me/5518998034500?text=" + texto);
+}
+
+// Inicia a página
+renderizar();
+</script>
+
+</body>
+</html>
