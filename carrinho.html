@@ -99,28 +99,36 @@
 
     /* --- MUDANÇA APENAS PARA MOBILE --- */
     
+/* Ajuste cirúrgico para centralizar os botões flutuantes */
     .controle-qtd {
-        background: transparent !important; /* Tira o fundo da caixa total */
-        border: none !important;           /* Tira a borda da caixa total */
-        width: 110px !important;            /* Dá espaço para os botões flutuarem */
-        justify-content: center;
+        background: transparent !important;
+        border: none !important;
+        width: auto !important; /* Deixa a largura se ajustar aos botões */
+        display: flex !important;
+        justify-content: center !important;
+        gap: 5px; /* Espaço pequeno e fixo entre os botões e a caixa */
     }
 
     .btn-qtd {
-        background: transparent !important; /* Botões ficam sem fundo */
-        color: var(--cor-principal) !important; /* Cor terracota nos sinais */
-        width: 35px !important;              /* Área de toque maior para o dedo */
-        font-size: 24px !important;          /* Sinais bem visíveis */
-        font-weight: bold;
+        background: transparent !important;
+        color: var(--cor-principal) !important;
+        width: 30px !important; /* Largura fixa e igual para os dois */
+        flex: 0 0 30px !important; /* Garante que não cresça nem diminua */
+        font-size: 22px !important;
+        padding: 0 !important;
+        margin: 0 !important;
     }
 
     .qtd-numero {
-        background: #fff !important;        /* Só o número ganha fundo branco */
-        border: 1px solid #ccc !important;  /* Só o número ganha borda */
+        background: #fff !important;
+        border: 1px solid #ccc !important;
         border-radius: 4px !important;
-        min-width: 35px !important;
+        width: 35px !important; /* Largura da caixinha branca */
         height: 30px !important;
-        flex: none !important;              /* Trava o tamanho da caixinha */
+        flex: 0 0 35px !important; /* Trava o tamanho para não sobrar espaço */
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
     }
 
     /* Alinhamento do preço */
