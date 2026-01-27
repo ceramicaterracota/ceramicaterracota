@@ -97,28 +97,11 @@
         margin-bottom: 10px;
     }
 
-    /* Ajuste específico para a caixa no celular */
-    .controle-qtd {
-        width: 80px; /* Travamos a largura total */
-        display: flex !important;
-    }
-
-    /* Forçamos os botões a terem o mesmo tamanho exato no celular */
-    .btn-qtd {
-        flex: 1 1 0 !important; /* Faz os dois botões ocuparem espaços idênticos */
-        width: auto !important;
-        min-width: 25px;
-    }
-
-    /* O número fica centralizado com espaço fixo */
-    .qtd-numero {
-        flex: 0 0 30px !important; /* Ocupa 30px fixos no meio */
-    }
-
+    /* Ajuste para o preço e botão remover ficarem alinhados */
     .item span {
         flex-grow: 1;
         text-align: right;
-        margin-right: 10px;
+        margin-right: 15px;
         font-weight: bold;
     }
 }
@@ -130,18 +113,17 @@
     border: 1px solid #ccc;
     border-radius: 4px;
     overflow: hidden;
-    height: 28px;
-    width: 75px; /* Aumentei um pouco a largura total para dar respiro */
+    height: 30px;
+    width: 90px; /* Largura segura para aparecer tudo no celular */
     flex-shrink: 0;
 }
 
 .btn-qtd {
-    background: #fdfdfd; /* Um fundo quase branco só para diferenciar levemente */
+    background: #fdfdfd;
     color: #333;
     border: none;
-    /* Botões menores e fixos */
-    flex: 0 0 22px; 
-    width: 5px;
+    /* Isso garante que os botões tenham sempre o mesmo tamanho */
+    flex: 0 0 28px; 
     height: 100%;
     font-size: 16px;
     cursor: pointer;
@@ -152,8 +134,7 @@
 }
 
 .qtd-numero {
-    /* O flex: 1 faz o número "esticar" e ganhar dos botões */
-    flex: 1; 
+    flex: 1; /* O número usa o que sobrou no meio */
     font-size: 15px;
     font-weight: normal;
     text-align: center;
@@ -163,9 +144,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #fff; /* Fundo branco puro no número */
+    background: #fff;
 }
-
     </style>
 </head>
 
