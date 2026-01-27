@@ -80,9 +80,7 @@
         }
 
 @media screen and (max-width: 600px) {
-    .container {
-        padding: 15px; 
-    }
+    .container { padding: 15px; }
     
     .item {
         flex-wrap: wrap;
@@ -92,50 +90,48 @@
         padding: 20px 0;
     }
 
-    .item-info {
-        width: 100%; 
-        margin-bottom: 10px;
-    }
+    .item-info { width: 100%; margin-bottom: 10px; }
 
-    /* --- MUDANÇA APENAS PARA MOBILE --- */
-    
-/* Ajuste cirúrgico para centralizar os botões flutuantes */
+    /* A MÁGICA: Criamos 3 colunas exatas */
     .controle-qtd {
         background: transparent !important;
         border: none !important;
-        width: auto !important; /* Deixa a largura se ajustar aos botões */
-        display: flex !important;
-        justify-content: center !important;
-        gap: 5px; /* Espaço pequeno e fixo entre os botões e a caixa */
+        display: grid !important;
+        /* Coluna 1: 30px, Coluna 2: 40px, Coluna 3: 30px */
+        grid-template-columns: 30px 40px 30px !important; 
+        align-items: center;
+        justify-items: center; /* Centraliza tudo dentro das colunas */
+        width: 100px !important;
+        flex-shrink: 0;
     }
 
     .btn-qtd {
         background: transparent !important;
         color: var(--cor-principal) !important;
-        width: 30px !important; /* Largura fixa e igual para os dois */
-        flex: 0 0 30px !important; /* Garante que não cresça nem diminua */
+        border: none !important;
+        width: 100% !important;
+        height: 35px !important;
         font-size: 22px !important;
+        font-weight: bold;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         padding: 0 !important;
         margin: 0 !important;
-    }
-
-.btn-qtd:last-child {
-        margin-left: -8px !important; /* Valor negativo puxa para a esquerda */
     }
 
     .qtd-numero {
         background: #fff !important;
         border: 1px solid #ccc !important;
         border-radius: 4px !important;
-        width: 35px !important; /* Largura da caixinha branca */
+        width: 100% !important; /* Ocupa os 40px da coluna do meio */
         height: 30px !important;
-        flex: 0 0 35px !important; /* Trava o tamanho para não sobrar espaço */
         display: flex !important;
         align-items: center;
         justify-content: center;
+        font-size: 16px;
     }
 
-    /* Alinhamento do preço */
     .item span {
         flex-grow: 1;
         text-align: right;
