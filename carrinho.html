@@ -97,7 +97,33 @@
         margin-bottom: 10px;
     }
 
-    /* Ajuste para o preço e botão remover ficarem alinhados */
+    /* --- MUDANÇA APENAS PARA MOBILE --- */
+    
+    .controle-qtd {
+        background: transparent !important; /* Tira o fundo da caixa total */
+        border: none !important;           /* Tira a borda da caixa total */
+        width: 110px !important;            /* Dá espaço para os botões flutuarem */
+        justify-content: center;
+    }
+
+    .btn-qtd {
+        background: transparent !important; /* Botões ficam sem fundo */
+        color: var(--cor-principal) !important; /* Cor terracota nos sinais */
+        width: 35px !important;              /* Área de toque maior para o dedo */
+        font-size: 24px !important;          /* Sinais bem visíveis */
+        font-weight: bold;
+    }
+
+    .qtd-numero {
+        background: #fff !important;        /* Só o número ganha fundo branco */
+        border: 1px solid #ccc !important;  /* Só o número ganha borda */
+        border-radius: 4px !important;
+        min-width: 35px !important;
+        height: 30px !important;
+        flex: none !important;              /* Trava o tamanho da caixinha */
+    }
+
+    /* Alinhamento do preço */
     .item span {
         flex-grow: 1;
         text-align: right;
@@ -105,6 +131,7 @@
         font-weight: bold;
     }
 }
+
 
 /* 1. Caixa principal com largura total travada */
 .controle-qtd {
