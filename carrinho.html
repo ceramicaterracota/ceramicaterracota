@@ -87,23 +87,34 @@
     .item {
         flex-wrap: wrap;
         display: flex;
-        justify-content: space-between; /* Empurra a quantidade pra esquerda e o preço pra direita */
+        justify-content: space-between;
         align-items: center;
         padding: 20px 0;
     }
 
     .item-info {
-        width: 100%; /* Nome continua em cima ocupando tudo */
+        width: 100%; 
         margin-bottom: 10px;
     }
 
+    /* Ajuste específico para a caixa no celular */
     .controle-qtd {
-        /* Garante que os botões não se amontoem */
-        width: 70px; 
-        justify-content: space-between;
+        width: 80px; /* Travamos a largura total */
+        display: flex !important;
     }
 
-    /* Estilo para o preço não ficar perdido no centro */
+    /* Forçamos os botões a terem o mesmo tamanho exato no celular */
+    .btn-qtd {
+        flex: 1 1 0 !important; /* Faz os dois botões ocuparem espaços idênticos */
+        width: auto !important;
+        min-width: 25px;
+    }
+
+    /* O número fica centralizado com espaço fixo */
+    .qtd-numero {
+        flex: 0 0 30px !important; /* Ocupa 30px fixos no meio */
+    }
+
     .item span {
         flex-grow: 1;
         text-align: right;
@@ -120,18 +131,17 @@
     border-radius: 4px;
     overflow: hidden;
     height: 28px;
-    width: 80px; /* Largura total da caixinha */
+    width: 75px; /* Aumentei um pouco a largura total para dar respiro */
     flex-shrink: 0;
-    box-sizing: border-box;
 }
 
 .btn-qtd {
-    background: transparent;
+    background: #fdfdfd; /* Um fundo quase branco só para diferenciar levemente */
     color: #333;
     border: none;
-    /* Aqui está o pulo do gato: flex-basis define o tamanho base igual para ambos */
-    flex: 0 0 25px; 
-    width: 25px; 
+    /* Botões menores e fixos */
+    flex: 0 0 22px; 
+    width: 5px;
     height: 100%;
     font-size: 16px;
     cursor: pointer;
@@ -139,12 +149,11 @@
     justify-content: center;
     align-items: center;
     padding: 0;
-    margin: 0;
-    box-sizing: border-box;
 }
 
 .qtd-numero {
-    flex: 1; /* O número ocupa o que sobrar no meio exatamente */
+    /* O flex: 1 faz o número "esticar" e ganhar dos botões */
+    flex: 1; 
     font-size: 15px;
     font-weight: normal;
     text-align: center;
@@ -154,7 +163,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #fff;
+    background: #fff; /* Fundo branco puro no número */
 }
 
     </style>
