@@ -4,190 +4,91 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">    
     <title>Carrinho | Cerâmica Terracota</title>
-    <style>
-        :root {
-            --cor-principal: #a0522d;
-        }
-        body {
-            font-family: Arial, sans-serif;
-            background: #f5f5dc;
-            padding: 10px;
-        }
-        .container {
-            max-width: 900px;
-            margin: 10px auto;
-            background: #fffaf0;
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            box-sizing: border-box;
-        }
+<style>
 
-        .item {
-            display: flex;
-            justify-content: space-between;
-            gap: 15px;
-            border-bottom: 1px solid #ddd;
-            padding: 15px 0;
-            align-items: center;
-        }
-        .item-info {
-            flex-grow: 1;
-        }
-        .item input {
-            width: 60px;
-            padding: 5px;
-            border-radius: 4px;
-            border: 1px solid #ccc;
-            height: 35px;
-            font-size: 16px;
-        }
-        button.btn-remover {
-            background: #d9534f;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        .total {
-            font-size: 1.4em;
-            font-weight: bold;
-            margin-top: 20px;
-            text-align: right;
-        }
-        .btn-voltar {
-            display: inline-block;
-            margin-bottom: 18px;
-            padding: 10px 16px;
-            border-radius: 8px;
-            text-decoration: none;
-            background-color: var(--cor-principal);
-            color: #fff;
-        }
-        .btn-finalizar {
-            display: block;
-            width: 100%;
-            background: #25d366; /* Cor do WhatsApp */
-            color: white;
-            border: none;
-            padding: 15px;
-            font-size: 1.1em;
-            font-weight: bold;
-            border-radius: 8px;
-            cursor: pointer;
-            margin-top: 20px;
-        }
-
-@media screen and (max-width: 600px) {
-    .container { padding: 15px; }
+    :root { --cor-principal: #a0522d; }
+    body { font-family: Arial, sans-serif; background: #f5f5dc; padding: 10px; }
     
-    .item {
-        flex-wrap: wrap;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 20px 0;
+    .container {
+        max-width: 900px; margin: 10px auto; background: #fffaf0;
+        padding: 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        box-sizing: border-box;
     }
 
-    .item-info { width: 100%; margin-bottom: 10px; }
+    .item {
+        display: flex; justify-content: space-between; gap: 15px;
+        border-bottom: 1px solid #ddd; padding: 15px 0; align-items: center;
+    }
 
-    /* A MÁGICA: Criamos 3 colunas exatas */
+    .item-info { flex-grow: 1; }
+
+    button.btn-remover {
+        background: #d9534f; color: white; border: none;
+        padding: 5px 10px; border-radius: 4px; cursor: pointer;
+    }
+
+    .total { font-size: 1.4em; font-weight: bold; margin-top: 20px; text-align: right; }
+    
+    .btn-voltar {
+        display: inline-block; margin-bottom: 18px; padding: 10px 16px;
+        border-radius: 8px; text-decoration: none; background-color: var(--cor-principal); color: #fff;
+    }
+
+    .btn-finalizar {
+        display: block; width: 100%; background: #25d366; color: white;
+        border: none; padding: 15px; font-size: 1.1em; font-weight: bold;
+        border-radius: 8px; cursor: pointer; margin-top: 20px;
+    }
+
+    /* --- ESTILO DOS BOTÕES (DESKTOP E GERAL) --- */
     .controle-qtd {
-        background: transparent !important;
-        border: none !important;
-        display: grid !important;
-        /* Coluna 1: 30px, Coluna 2: 40px, Coluna 3: 30px */
-        grid-template-columns: 30px 40px 30px !important; 
-        align-items: center;
-        justify-items: center; /* Centraliza tudo dentro das colunas */
-        width: 100px !important;
-        flex-shrink: 0;
+        display: flex; align-items: center; background: #fff;
+        border: 1px solid #ccc; border-radius: 4px; overflow: hidden;
+        height: 30px; width: 80px; flex-shrink: 0;
     }
 
     .btn-qtd {
-        background: transparent !important;
-        color: var(--cor-principal) !important;
-        border: none !important;
-        width: 100% !important;
-        height: 35px !important;
-        font-size: 22px !important;
-        font-weight: bold;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 0 !important;
-        margin: 0 !important;
+        background: #fdfdfd; color: #333; border: none;
+        width: 25px; flex: 0 0 25px; height: 100%; cursor: pointer;
+        display: flex; justify-content: center; align-items: center;
     }
 
     .qtd-numero {
-        background: #fff !important;
-        border: 1px solid #ccc !important;
-        border-radius: 4px !important;
-        width: 100% !important; /* Ocupa os 40px da coluna do meio */
-        height: 30px !important;
-        display: flex !important;
-        align-items: center;
-        justify-content: center;
-        font-size: 16px;
+        flex: 1; text-align: center; border-left: 1px solid #eee;
+        border-right: 1px solid #eee; height: 100%; display: flex;
+        align-items: center; justify-content: center;
     }
 
-    .item span {
-        flex-grow: 1;
-        text-align: right;
-        margin-right: 15px;
-        font-weight: bold;
+    /* --- AJUSTE EXCLUSIVO PARA CELULAR --- */
+    @media screen and (max-width: 600px) {
+        .item { flex-wrap: wrap; padding: 20px 0; }
+        .item-info { width: 100%; margin-bottom: 10px; }
+
+        .controle-qtd {
+            background: transparent !important; border: none !important;
+            width: 100px !important; position: relative !important;
+            justify-content: space-between !important;
+        }
+
+        .btn-qtd {
+            background: transparent !important; color: var(--cor-principal) !important;
+            width: 30px !important; flex: 0 0 30px !important; font-size: 24px !important;
+            font-weight: bold !important; z-index: 2;
+        }
+
+        .qtd-numero {
+            background: #fff !important; border: 1px solid #ccc !important;
+            border-radius: 4px !important; width: 35px !important; height: 30px !important;
+            /* Centralização absoluta: isso ignora o tamanho dos botões ao lado */
+            position: absolute !important; left: 50% !important; top: 50% !important;
+            transform: translate(-50%, -50%) !important;
+            z-index: 1; border-left: 1px solid #ccc !important; border-right: 1px solid #ccc !important;
+        }
+
+        .item span { flex-grow: 1; text-align: right; margin-right: 10px; font-weight: bold; }
     }
-}
+</style>
 
-
-/* 1. Caixa principal com largura total travada */
-.controle-qtd {
-    display: flex;
-    align-items: center;
-    background: #fff;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    overflow: hidden;
-    height: 30px;
-    width: 80px; /* Largura total da caixinha */
-    flex-shrink: 0;
-}
-
-/* 2. Botões com tamanho fixo e pequeno (IGUAIS) */
-.btn-qtd {
-    background: #fdfdfd;
-    color: #333;
-    border: none;
-    /* Aqui travamos o tamanho: eles terão 25px cada, não importa o que aconteça */
-    width: 20px; 
-    flex: 0 0 20px; 
-    height: 100%;
-    font-size: 16px;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0;
-    margin: 0;
-}
-
-/* 3. O número central que "estica" para ocupar o maior espaço */
-.qtd-numero {
-    flex: 1; /* Ele ganha todo o espaço que sobra no meio */
-    font-size: 15px;
-    font-weight: normal;
-    text-align: center;
-    border-left: 1px solid #eee;
-    border-right: 1px solid #eee;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #fff;
-}
-
-    </style>
 </head>
 
 <body>
