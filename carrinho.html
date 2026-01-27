@@ -148,15 +148,25 @@ function renderizar() {
 }
 
 function alterarQtd(i, valor) {
-    // Se o valor atual é 1 e o usuário clicou no botão de menos (valor vira 0)
+    let item = carrinho[i];
+    let nomeMinusculo = item.nome.toLowerCase();
+
+    // 1. REGRA DE EXCEÇÃO: Se for o Kit 17, ele pula o bloqueio e vai direto para a atualização
+    const ehExcecao = nomeMinusculo.includes("kit 17");
+
+    // 2. REGRA DE BLOQUEIO: Se for maior que 1 E for Kit/Única E NÃO for exceção
+    if (valor > 1 && !ehExcecao && (nomeMinusculo.includes("kit"))) {
+        alert(`Atenção: "${item.nome}" é uma peça única e exclusiva. Não temos mais unidades em estoque!`);
+        return; 
+    }
+
+    // Lógica para remover (que você já tem)
     if (valor < 1) {
-        const confirmar = confirm(`Deseja remover "${carrinho[i].nome}" do carrinho?`);
-        if (confirmar) {
-            remover(i); // Chama a função de remover que você já tem
-        }
-        return; // Sai da função sem alterar o valor para zero
+        if (confirm(`Deseja remover "${item.nome}" do carrinho?`)) remover(i);
+        return;
     }
     
+    // Atualização normal (para o Kit 17 ou itens comuns)
     carrinho[i].quantidade = valor;
     salvarEAtualizar();
 }
