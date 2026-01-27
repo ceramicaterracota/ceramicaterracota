@@ -106,6 +106,7 @@
     }
 }
 
+/* 1. Caixa principal com largura total travada */
 .controle-qtd {
     display: flex;
     align-items: center;
@@ -114,16 +115,18 @@
     border-radius: 4px;
     overflow: hidden;
     height: 30px;
-    width: 90px; /* Largura segura para aparecer tudo no celular */
+    width: 80px; /* Largura total da caixinha */
     flex-shrink: 0;
 }
 
+/* 2. Botões com tamanho fixo e pequeno (IGUAIS) */
 .btn-qtd {
     background: #fdfdfd;
     color: #333;
     border: none;
-    /* Isso garante que os botões tenham sempre o mesmo tamanho */
-    flex: 0 0 28px; 
+    /* Aqui travamos o tamanho: eles terão 25px cada, não importa o que aconteça */
+    width: 20px; 
+    flex: 0 0 20px; 
     height: 100%;
     font-size: 16px;
     cursor: pointer;
@@ -131,10 +134,12 @@
     justify-content: center;
     align-items: center;
     padding: 0;
+    margin: 0;
 }
 
+/* 3. O número central que "estica" para ocupar o maior espaço */
 .qtd-numero {
-    flex: 1; /* O número usa o que sobrou no meio */
+    flex: 1; /* Ele ganha todo o espaço que sobra no meio */
     font-size: 15px;
     font-weight: normal;
     text-align: center;
@@ -146,6 +151,7 @@
     justify-content: center;
     background: #fff;
 }
+
     </style>
 </head>
 
