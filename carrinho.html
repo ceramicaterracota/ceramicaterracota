@@ -96,6 +96,14 @@
     <a href="index.html" class="btn-voltar">← Voltar à loja</a>
 
     <h1>Seu carrinho 🛒</h1>
+
+        <div id="calculadora-frete">
+    <label for="cep">Calcular Frete (CEP):</label>
+    <input type="text" id="cep" placeholder="00000-000">
+    <button onclick="calcularFrete()">Calcular</button>
+    <p id="resultado-frete">Frete: R$ 0,00</p>
+</div>
+
     <div id="lista">
         </div>
 
@@ -107,6 +115,7 @@
 <script>
 // Puxa os dados que o index.html salvou
 let carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
+let valorFreteGlobal = 0;
 
 function renderizar() {
     const lista = document.getElementById("lista");
@@ -144,7 +153,9 @@ function renderizar() {
         `;
     });
 
-    totalElemento.innerText = "Total: R$ " + soma.toFixed(2);
+   // ... final do loop forEach
+    const totalComFrete = soma + valorFreteGlobal; // <--- SOMA OS DOIS
+    totalElemento.innerText = "Total: R$ " + totalComFrete.toFixed(2);
 }
 
 function alterarQtd(i, valor) {
@@ -209,6 +220,45 @@ function enviarWhats() {
 
 // Inicia a página
 renderizar();
+</script>
+
+<script>
+    async function calcularFrete() {
+    const cep = document.getElementById('cep').value.replace(/\D/g, ''); // Pega só os números
+    const resultadoTexto = document.getElementById('resultado-frete');
+    
+    if (cep.length !== 8) {
+        alert("CEP inválido! Digite os 8 números.");
+        return;
+    }
+
+    try {
+        // Consultando o CEP gratuitamente
+        const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+        const dados = await response.json();
+
+        if (dados.erro) {
+            alert("CEP não encontrado.");
+            return;
+        }
+
+        // Regra de negócio (Exemplo: SP é 15 reais, outros estados 30)
+     // ... dentro da calcularFrete
+    valorFreteGlobal = 30.00; // <--- Agora ela salva na gaveta global
+    if (dados.uf === 'SP') {
+    valorFreteGlobal = 15.00;
+}
+
+        // Exibe o valor do frete
+       resultadoTexto.innerText = `Frete para ${dados.localidade}: R$ ${valorFreteGlobal.toFixed(2)}`;
+        
+        // Chama a função para somar tudo
+        renderizar(); // <--- ISSO FAZ O TOTAL LÁ DE CIMA ATUALIZAR NA HORA!
+
+    } catch (error) {
+        console.error("Erro ao buscar CEP", error);
+    }
+}
 </script>
 
 </body>
