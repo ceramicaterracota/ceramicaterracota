@@ -214,9 +214,14 @@ function alterarQtd(i, valor) {
 }
 
 // 5. Enviar para WhatsApp (Sem emojis para evitar erro de "?")
-function enviarWhats() {
+ function enviarWhats() {
     if (valorFreteGlobal === 0) {
         alert("⚠️ Por favor, calcule o frete antes de finalizar!");
+        return;
+    }
+
+    if (carrinho.length === 0) {
+        alert("Carrinho vazio!");
         return;
     }
 
@@ -224,13 +229,24 @@ function enviarWhats() {
     let somaProd = 0;
     
     carrinho.forEach(item => {
-        somaProd += (item.preco * item.quantidade);
-        texto += "*" + item.quantidade + "x* " + item.nome + "%0A";
+        const subtotalItem = item.preco * item.quantidade;
+        somaProd += subtotalItem;
+        
+        // Monta a linha do nome e quantidade
+        texto += `*${item.quantidade}x* ${item.nome}%0A`;
+        
+        // Adiciona a opcao (tamanho/cor) e o preco se existirem
+        if (item.opcao) {
+            texto += `(${item.opcao}) - R$ ${item.preco.toFixed(2)}%0A`;
+        } else {
+            texto += `R$ ${item.preco.toFixed(2)}%0A`;
+        }
+        texto += "%0A"; // Pula uma linha entre produtos
     });
 
-    texto += "%0A*CIDADE:* " + cidadeUFCliente;
-    texto += "%0A*FRETE:* R$ " + valorFreteGlobal.toFixed(2);
-    texto += "%0A*TOTAL:* R$ " + (somaProd + valorFreteGlobal).toFixed(2);
+    texto += `%0A*CIDADE:* ${cidadeUFCliente}`;
+    texto += `%0A*FRETE:* R$ ${valorFreteGlobal.toFixed(2)}`;
+    texto += `%0A*TOTAL DO PEDIDO: R$ ${(somaProd + valorFreteGlobal).toFixed(2)}*`;
 
     window.open("https://wa.me/5518998034500?text=" + texto);
 }
