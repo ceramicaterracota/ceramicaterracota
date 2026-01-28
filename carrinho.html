@@ -108,8 +108,13 @@
     display: flex;
     flex-direction: column;
     gap: 8px;
-    width: fit-content; /* O fundo colorido só vai até onde termina o texto */
     text-align: left;    /* Alinha o texto à esquerda dentro dele */
+}
+
+.frete-campos {
+    display: flex;
+    gap: 8px;
+    width: 100%;
 }
 
 #calculadora-frete label {
@@ -119,6 +124,7 @@
 }
 
 #calculadora-frete input {
+    flex: 1;
     padding: 6px; /* Aumentado para facilitar o toque no celular */
     border: 2px solid #eee;
     border-radius: 8px;
@@ -173,8 +179,10 @@
 
         <div id="calculadora-frete">
     <label for="cep">Calcular Frete (CEP):</label>
-    <input type="text" id="cep" placeholder="00000-000">
-    <button onclick="calcularFrete()">Calcular</button>
+    <div class="frete-campos">
+        <input type="text" id="cep" placeholder="00000-000">
+        <button onclick="calcularFrete()">Calcular</button>
+    </div>
     <p id="resultado-frete">Frete: R$ 0,00</p>
 </div>
 
