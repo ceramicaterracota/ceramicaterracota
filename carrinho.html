@@ -86,7 +86,81 @@
         }
 
         .item span { flex-grow: 1; text-align: right; margin-right: 10px; font-weight: bold; }
+    
+        #calculadora-frete {
+        padding: 15px;
     }
+    
+        #calculadora-frete input, 
+        #calculadora-frete button {
+        width: 100%; /* Garante que ocupem toda a largura no celular */
+        box-sizing: border-box;
+    }
+    }
+
+    /* --- ESTILO DA CALCULADORA DE FRETE --- */
+#calculadora-frete {
+    background: #fff;
+    padding: 13px 16px;
+    border-radius: 12px;
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: fit-content; /* O fundo colorido só vai até onde termina o texto */
+    text-align: left;    /* Alinha o texto à esquerda dentro dele */
+}
+
+#calculadora-frete label {
+    font-weight: bold;
+    color: var(--cor-principal);
+    font-size: 1em;
+}
+
+#calculadora-frete input {
+    padding: 6px; /* Aumentado para facilitar o toque no celular */
+    border: 2px solid #eee;
+    border-radius: 8px;
+    font-size: 0.95em;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+#calculadora-frete input:focus {
+    border-color: var(--cor-principal);
+}
+
+#calculadora-frete button {
+    background-color: var(--cor-principal);
+    color: white;
+    border: none;
+    padding: 8px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 0.95em;
+    cursor: pointer;
+    transition: opacity 0.2s;
+    width: 100px; /* O botão só terá o tamanho do texto interno */
+    align-self: flex-start; /* Garante que ele fique alinhado à esquerda e não estique */
+}
+
+#calculadora-frete button:hover {
+    opacity: 0.9;
+}
+
+#resultado-frete {
+    margin: 0;
+    font-weight: bold;
+    color: #444;
+    background: #fdf2e9;
+    padding: 6px;
+    border-radius: 6px;
+    text-align: center;
+    width: fit-content; /* O fundo colorido só vai até onde termina o texto */
+    text-align: left;    /* Alinha o texto à esquerda dentro dele */
+}
+
 </style>
 
 </head>
