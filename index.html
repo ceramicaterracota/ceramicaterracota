@@ -168,6 +168,31 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.08);
         }
 
+/* Cria a lupa automaticamente em todos os containers de produto */
+.produto {
+    position: relative; /* Base para a lupa se posicionar */
+}
+
+/* O "fantasma" da lupinha que aparece sobre a imagem */
+.produto::after {
+    content: '🔍'; /* O ícone */
+    position: absolute;
+    top: 123px;    /* Ajuste essa altura para bater com o canto da sua foto */
+    left: 15px;    /* Distância da lateral esquerda */
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    pointer-events: none; /* Não atrapalha o clique na foto */
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    z-index: 5;
+}
+
         /* CATÁLOGO */
   /* --- 1. AJUSTE DA GRADE (PC) --- */
 .galeria {
@@ -462,6 +487,23 @@
 }
 
 /* --- PADRONIZAÇÃO DOS CAMPOS DE SELEÇÃO --- */
+/* Isso vai garantir que os seletores não fiquem "grudados" nas bordas */
+.controle-compra {
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.controle-compra {
+    gap: 6px;            /* Diminui o espaço entre o seletor de tamanho e o de cor */
+    margin-top: 8px;
+    padding: 5px;
+}
+
+/* Deixa os textos de Tamanho e Cor bem pequenos para economizar espaço vertical */
+.campo label {
+    font-size: 0.75em !important;
+    margin-bottom: 2px;
+}
 
 .controle-compra {
     display: flex;
@@ -487,19 +529,21 @@
 }
 
 /* Estiliza os selects (Tamanho e Cor) para ficarem iguais */
+/* Estiliza os selects (Tamanho e Cor) para ficarem mais compactos */
 .opcao, .cor-selecionada {
     width: 100%;
-    padding: 8px;
-    border: 1.5px solid #a0522d;
-    border-radius: 6px;
+    padding: 4px 6px;    /* Diminuído de 8px para 4px de altura */
+    border: 1px solid #a0522d; /* Borda um pouco mais fina */
+    border-radius: 4px;
     background-color: #fffaf0;
     color: #2f2f2f;
     font-family: inherit;
-    font-size: 0.95em;
+    font-size: 0.8em;    /* Fonte menor para combinar com o card */
     cursor: pointer;
     outline: none;
-    transition: border-color 0.3s;
+    height: 30px;        /* Força uma altura fixa baixinha */
 }
+
 
 .opcao:focus, .cor-selecionada:focus {
     border-color: #8b4513;
