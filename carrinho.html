@@ -228,7 +228,6 @@ function enviarWhats() {
 
     // Agora enviamos apenas o total dos produtos
     texto += `%0A*TOTAL DO PEDIDO: R$ ${somaProd.toFixed(2)}*`;
-    texto += `%0A%0A_Favor combinar o frete com o vendedor._`;
 
     window.open("https://wa.me/5518998034500?text=" + texto);
 }
