@@ -222,34 +222,75 @@
     font-size: 0.9em;  /* Título menor */
 }
 
-/* --- AJUSTE ESPECÍFICO PARA CELULAR --- */
+/* --- VOLTANDO AO ESTILO ORIGINAL NO CELULAR --- */
 @media (max-width: 768px) {
     .galeria {
-        /* Muda de 2 colunas para 1 só coluna inteira */
-        grid-template-columns: 1fr !important; 
-        gap: 20px;
-        padding: 15px;
+        grid-template-columns: 1fr !important; /* 1 por linha */
+        gap: 25px;
     }
 
     .produto {
-        max-width: 350px; /* Evita que o card fique largo demais no celular */
-        margin: 0 auto;  /* Centraliza o card na tela */
+        padding: 15px; /* Moldura original */
     }
 
     .produto img {
-        height: 250px !important; /* Foto maior agora que tem espaço */
+        height: auto !important; /* Foto volta ao tamanho natural */
+        max-height: 350px;
+        object-fit: contain;
+    }
+
+    /* Restaurando tamanhos de fonte e botões */
+    .produto h3 {
+        font-size: 1.1em !important;
+    }
+
+    .preco {
+        font-size: 1em !important;
+    }
+
+    .opcao, .cor-selecionada {
+        font-size: 1rem !important; /* Fonte grande de novo */
+        height: 40px !important;    /* Altura confortável */
+        padding: 8px !important;
+    }
+
+    .btn-saiba {
+        padding: 12px !important;
+        font-size: 1em !important;
     }
 }
 
-/* Ajuste da posição da lupa no Celular */
+/* --- LUPINHA AJUSTADA (USANDO PORCENTAGEM PARA NÃO FUGIR) --- */
+.produto {
+    position: relative;
+}
+
+.produto::after {
+    content: '🔍';
+    position: absolute;
+    /* Usando porcentagem, ela se baseia no tamanho do card */
+    top: 35%; 
+    right: 10%;
+    
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    pointer-events: none;
+    z-index: 10;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+}
+
+/* Ajuste fino da lupa no celular */
 @media (max-width: 768px) {
     .produto::after {
-        /* Como a imagem no celular agora tem 250px de altura: */
-        top: 230px; 
-        right: 30px;
-        width: 32px; /* Lupa um pouco maior para facilitar a visão */
-        height: 32px;
-        font-size: 16px;
+        top: 40%; /* Ajusta para ficar sobre a foto maior do celular */
+        right: 8%;
     }
 }
 
