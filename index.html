@@ -268,14 +268,12 @@
 .produto::after {
     content: '🔍';
     position: absolute;
-    /* Usando porcentagem, ela se baseia no tamanho do card */
-    top: 35%; 
-    right: 10%;
-    
+    top: 120px; 
+    right: 15px;
     background: rgba(0, 0, 0, 0.7);
     color: white;
-    width: 35px;
-    height: 35px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -289,8 +287,8 @@
 /* Ajuste fino da lupa no celular */
 @media (max-width: 768px) {
     .produto::after {
-        top: 40%; /* Ajusta para ficar sobre a foto maior do celular */
-        right: 8%;
+        top: 120px; /* Ajusta para ficar sobre a foto maior do celular */
+        right: 15px;
     }
 }
 
@@ -304,7 +302,6 @@
         font-size: 0.8em;
         padding: 4px;
     }
-}
 
         /* PROCESSO */
         .etapas {
