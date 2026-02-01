@@ -87,85 +87,7 @@
 
         .item span { flex-grow: 1; text-align: right; margin-right: 10px; font-weight: bold; }
     
-        #calculadora-frete {
-        padding: 15px;
     }
-    
-        #calculadora-frete input, 
-        #calculadora-frete button {
-        width: 100%; /* Garante que ocupem toda a largura no celular */
-        box-sizing: border-box;
-    }
-    }
-
-    /* --- ESTILO DA CALCULADORA DE FRETE --- */
-#calculadora-frete {
-    background: #fff;
-    padding: 13px 16px;
-    border-radius: 12px;
-    border: 1px solid #ddd;
-    margin-bottom: 10px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    text-align: left;    /* Alinha o texto à esquerda dentro dele */
-}
-
-.frete-campos {
-    display: flex;
-    gap: 8px;
-    width: 100%;
-}
-
-#calculadora-frete label {
-    font-weight: bold;
-    color: var(--cor-principal);
-    font-size: 1em;
-}
-
-#calculadora-frete input {
-    flex: 1;
-    padding: 6px; /* Aumentado para facilitar o toque no celular */
-    border: 2px solid #eee;
-    border-radius: 8px;
-    font-size: 0.95em;
-    outline: none;
-    transition: border-color 0.3s;
-}
-
-#calculadora-frete input:focus {
-    border-color: var(--cor-principal);
-}
-
-#calculadora-frete button {
-    background-color: var(--cor-principal);
-    color: white;
-    border: none;
-    padding: 8px;
-    border-radius: 8px;
-    font-weight: bold;
-    font-size: 0.95em;
-    cursor: pointer;
-    transition: opacity 0.2s;
-    width: 100px; /* O botão só terá o tamanho do texto interno */
-    align-self: flex-start; /* Garante que ele fique alinhado à esquerda e não estique */
-}
-
-#calculadora-frete button:hover {
-    opacity: 0.9;
-}
-
-#resultado-frete {
-    margin: 0;
-    font-weight: bold;
-    color: #444;
-    background: #fdf2e9;
-    padding: 6px;
-    border-radius: 6px;
-    text-align: center;
-    width: fit-content; /* O fundo colorido só vai até onde termina o texto */
-    text-align: left;    /* Alinha o texto à esquerda dentro dele */
-}
 
 </style>
 
@@ -176,15 +98,6 @@
     <a href="index.html" class="btn-voltar">← Voltar à loja</a>
 
     <h1>Seu carrinho 🛒</h1>
-
-        <div id="calculadora-frete">
-    <label for="cep">Calcular Frete (CEP):</label>
-    <div class="frete-campos">
-        <input type="text" id="cep" placeholder="00000-000">
-        <button onclick="calcularFrete()">Calcular</button>
-    </div>
-    <p id="resultado-frete">Frete: R$ 0,00</p>
-</div>
 
     <div id="lista">
         </div>
@@ -296,14 +209,9 @@ function alterarQtd(i, valor) {
 }
 
 // 5. Enviar para WhatsApp (Sem emojis para evitar erro de "?")
- function enviarWhats() {
-    if (valorFreteGlobal === 0) {
-        alert("⚠️ Por favor, calcule o frete antes de finalizar!");
-        return;
-    }
-
+function enviarWhats() {
     if (carrinho.length === 0) {
-        alert("Carrinho vazio!");
+        alert("Seu carrinho está vazio!");
         return;
     }
 
@@ -311,24 +219,16 @@ function alterarQtd(i, valor) {
     let somaProd = 0;
     
     carrinho.forEach(item => {
-        const subtotalItem = item.preco * item.quantidade;
-        somaProd += subtotalItem;
-        
-        // Monta a linha do nome e quantidade
+        somaProd += (item.preco * item.quantidade);
         texto += `*${item.quantidade}x* ${item.nome}%0A`;
-        
-        // Adiciona a opcao (tamanho/cor) e o preco se existirem
-        if (item.opcao) {
-            texto += `(${item.opcao}) - R$ ${item.preco.toFixed(2)}%0A`;
-        } else {
-            texto += `R$ ${item.preco.toFixed(2)}%0A`;
-        }
-        texto += "%0A"; // Pula uma linha entre produtos
+        if (item.opcao) texto += `(${item.opcao}) - R$ ${item.preco.toFixed(2)}%0A`;
+        else texto += `R$ ${item.preco.toFixed(2)}%0A`;
+        texto += "%0A";
     });
 
-    texto += `%0A*CIDADE:* ${cidadeUFCliente}`;
-    texto += `%0A*FRETE:* R$ ${valorFreteGlobal.toFixed(2)}`;
-    texto += `%0A*TOTAL DO PEDIDO: R$ ${(somaProd + valorFreteGlobal).toFixed(2)}*`;
+    // Agora enviamos apenas o total dos produtos
+    texto += `%0A*TOTAL DO PEDIDO: R$ ${somaProd.toFixed(2)}*`;
+    texto += `%0A%0A_Favor combinar o frete com o vendedor._`;
 
     window.open("https://wa.me/5518998034500?text=" + texto);
 }
