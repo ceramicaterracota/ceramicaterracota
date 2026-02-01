@@ -225,19 +225,33 @@
 /* --- AJUSTE ESPECÍFICO PARA CELULAR --- */
 @media (max-width: 768px) {
     .galeria {
-        grid-template-columns: repeat(2, 1fr); 
-        gap: 8px;
-        padding: 5px; /* Menos respiro nas laterais do site */
+        /* Muda de 2 colunas para 1 só coluna inteira */
+        grid-template-columns: 1fr !important; 
+        gap: 20px;
+        padding: 15px;
     }
 
     .produto {
-        padding: 5px; /* Diminui a "moldura" interna para ganhar espaço */
+        max-width: 350px; /* Evita que o card fique largo demais no celular */
+        margin: 0 auto;  /* Centraliza o card na tela */
     }
 
     .produto img {
-        height: 130px; /* Foto um pouco menor no celular para caber o texto */
-        background-color: #fff; 
+        height: 250px !important; /* Foto maior agora que tem espaço */
     }
+}
+
+/* Ajuste da posição da lupa no Celular */
+@media (max-width: 768px) {
+    .produto::after {
+        /* Como a imagem no celular agora tem 250px de altura: */
+        top: 230px; 
+        right: 30px;
+        width: 32px; /* Lupa um pouco maior para facilitar a visão */
+        height: 32px;
+        font-size: 16px;
+    }
+}
 
     /* Reduzindo as margens dos botões e seletores para não apertar */
     .controle-compra {
