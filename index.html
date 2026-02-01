@@ -189,27 +189,40 @@
 .produto img {
     width: 100%;
     height: 150px;     /* Altura menor para a foto não ocupar a tela toda */
-    object-fit: cover; /* Mantém a foto bonita mesmo pequena */
-    border-radius: 4px;
+    object-fit: contain; /* Mantém a foto bonita mesmo pequena */
+    border-radius: 9px;
 }
 
 .produto h3 {
     font-size: 0.9em;  /* Título menor */
 }
 
-/* --- 3. AJUSTE PARA CELULAR (2 COLUNAS) --- */
+/* --- AJUSTE ESPECÍFICO PARA CELULAR --- */
 @media (max-width: 768px) {
     .galeria {
-        grid-template-columns: repeat(2, 1fr); /* FORÇA 2 COLUNAS NO CELULAR */
+        grid-template-columns: repeat(2, 1fr); 
         gap: 8px;
+        padding: 5px; /* Menos respiro nas laterais do site */
+    }
+
+    .produto {
+        padding: 5px; /* Diminui a "moldura" interna para ganhar espaço */
     }
 
     .produto img {
-        height: 120px; /* Foto ainda menor no celular */
+        height: 130px; /* Foto um pouco menor no celular para caber o texto */
+        background-color: #fff; 
     }
 
-    .produto h3 {
-        font-size: 0.8em; /* Fonte pequena para não quebrar o layout */
+    /* Reduzindo as margens dos botões e seletores para não apertar */
+    .controle-compra {
+        gap: 5px;
+        padding: 5px 0;
+    }
+    
+    .opcao, .cor-selecionada {
+        font-size: 0.8em;
+        padding: 4px;
     }
 }
 
