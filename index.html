@@ -133,7 +133,7 @@
 
         .home-box {
             background-color: rgba(245, 245, 220, 0.9);
-            padding: 30px;
+            padding: 1px;
             border-radius: 12px;
             max-width: 700px;
         }
@@ -169,28 +169,49 @@
         }
 
         /* CATÁLOGO */
-        .galeria {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
+  /* --- 1. AJUSTE DA GRADE (PC) --- */
+.galeria {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* FORÇA 4 COLUNAS NO PC */
+    gap: 12px; /* Espaço menor entre as fotos */
+    margin-top: 20px;
+}
 
-        .produto {
-            background-color: #f5f5dc;
-            border: 1px solid #a0522d;
-            border-radius: 10px;
-            padding: 15px;
-            text-align: center;
-        }
+/* --- 2. AJUSTE DO CARD (PARA ENCOLHER) --- */
+.produto {
+    background-color: #f5f5dc;
+    border: 1px solid #a0522d;
+    border-radius: 8px;
+    padding: 8px; /* Menos "gordura" interna */
+    text-align: center;
+}
 
-        .produto img {
-            width: 100%;
-            height: auto;
-            object-fit: contain;
-            border-radius: 6px;
-            margin-bottom: 10px;
-        }
+.produto img {
+    width: 100%;
+    height: 150px;     /* Altura menor para a foto não ocupar a tela toda */
+    object-fit: cover; /* Mantém a foto bonita mesmo pequena */
+    border-radius: 4px;
+}
+
+.produto h3 {
+    font-size: 0.9em;  /* Título menor */
+}
+
+/* --- 3. AJUSTE PARA CELULAR (2 COLUNAS) --- */
+@media (max-width: 768px) {
+    .galeria {
+        grid-template-columns: repeat(2, 1fr); /* FORÇA 2 COLUNAS NO CELULAR */
+        gap: 8px;
+    }
+
+    .produto img {
+        height: 120px; /* Foto ainda menor no celular */
+    }
+
+    .produto h3 {
+        font-size: 0.8em; /* Fonte pequena para não quebrar o layout */
+    }
+}
 
         /* PROCESSO */
         .etapas {
@@ -525,9 +546,10 @@ function toggleBloco(button, textoOriginal) {
 <nav>
     <ul>
         <li><a href="#home">Home</a></li>
-        <li><a href="#sobre">Sobre</a></li>
         <li><a href="#catalogo-naturais">Naturais</a></li>
-        <li><a href="#catalogo-esmaltados">Esmaltados</a></li>
+        <li><a href="#kits-esmaltados">Kits esmaltados</a></li>
+        <li><a href="#catalogo-esmaltados">Esmaltados individuais</a></li>
+        <li><a href="#sobre">Sobre</a></li>
         <li><a href="#processo">Processo</a></li>
         <li><a href="#contato">Contato</a></li>
         <li><a href="carrinho.html" class="btn-carrinho">
@@ -560,36 +582,6 @@ function toggleBloco(button, textoOriginal) {
     </div>
 </section>
 
-<section id="sobre" class="container wiki-open">
-    <h2 class="wiki-toggle">
-       Sobre a Terracota Produtos Cerâmicos
-       <span class="setinha">▾</span>
-   </h2>
-
-   <div class="wiki-content">
-    <p>
-        A Cerâmica Terracota nasce do barro e das mãos. Nossa produção é 100% manual,
-        com técnicas tradicionais e esmaltação artesanal, valorizando a identidade
-        regional de Indiana – SP. Cada peça é única!
-    </p>
-
-    <div class="galeria">
-        <div class="produto">
-  <img src="estoque1.jpg" alt="Bebedouro e Comedouro para pet">
-     </div>
-
-        <div class="produto">
-  <img src="estoque2.jpg" alt="Bebedouro e Comedouro para pet">
-     </div>
-
-        <div class="produto">
-  <img src="estoque3.jpg" alt="Bebedouro e Comedouro para pet">
-     </div>
-
-
-   </div>
-
-</section>
 
 <section id="catalogo-naturais" class="container wiki-open">
     <h2 class="wiki-toggle">
@@ -1045,15 +1037,15 @@ function toggleBloco(button, textoOriginal) {
 
 </section>
 
-<section id="catalogo-esmaltados" class="container wiki-open">
+<section id="kits-esmaltados" class="container wiki-open">
      <h2 class="wiki-toggle">
-       Catálogo - Esmaltados
+       Catálogo - Kits Esmaltados
       <span class="setinha">▾</span>
 </h2>
 
  <div class="wiki-content">
 
-    <p>Cada peça pode apresentar variações de tonalidades.</p>
+    <p>Cada kit é único.</p>
 
     <div class="galeria">
 
@@ -1702,6 +1694,7 @@ function toggleBloco(button, textoOriginal) {
 
 </div>
 
+
 <div class="produto">
   <img src="esmaltado18.jpg" alt="Bebedouro e Comedouro para pet">
   <h3>Kit 17 - 3 peças</h3>
@@ -1746,6 +1739,19 @@ function toggleBloco(button, textoOriginal) {
   </div>
 
 </div>
+</section> 
+
+<section id="catalogo-esmaltados" class="container wiki-open">
+     <h2 class="wiki-toggle">
+       Catálogo - Esmaltados Individuais
+      <span class="setinha">▾</span>
+</h2>
+
+ <div class="wiki-content">
+
+    <p>Cada peça pode apresentar variações de tonalidades.</p>
+
+    <div class="galeria">
 
 <div class="produto">
   <img src="esmaltado17.jpg" alt="Bebedouro e Comedouro para pet">
@@ -3410,6 +3416,36 @@ function toggleBloco(button, textoOriginal) {
 </div>
 
 </div>
+</section>
+
+<section id="sobre" class="container wiki-open">
+    <h2 class="wiki-toggle">
+       Sobre a Terracota Produtos Cerâmicos
+       <span class="setinha">▾</span>
+   </h2>
+
+   <div class="wiki-content">
+    <p>
+        A Cerâmica Terracota nasce do barro e das mãos. Nossa produção é 100% manual,
+        com técnicas tradicionais e esmaltação artesanal, valorizando a identidade
+        regional de Indiana – SP. Cada peça é única!
+    </p>
+
+    <div class="galeria">
+        <div class="produto">
+  <img src="estoque1.jpg" alt="Bebedouro e Comedouro para pet">
+     </div>
+
+        <div class="produto">
+  <img src="estoque2.jpg" alt="Bebedouro e Comedouro para pet">
+     </div>
+
+        <div class="produto">
+  <img src="estoque3.jpg" alt="Bebedouro e Comedouro para pet">
+     </div>
+
+
+   </div>
 
 </section>
 
