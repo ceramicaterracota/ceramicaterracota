@@ -284,11 +284,9 @@
     box-shadow: 0 2px 5px rgba(0,0,0,0.5);
 }
 
-/* Ajuste fino da lupa no celular */
 @media (max-width: 768px) {
     .produto::after {
-        top: 120px; /* Ajusta para ficar sobre a foto maior do celular */
-        right: 15px;
+        display: none !important; /* Isso mata a lupa no celular */
     }
 }
 
